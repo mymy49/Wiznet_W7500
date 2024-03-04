@@ -1,5 +1,6 @@
 <!DOCTYPE CrossStudio_Project_File>
 <solution Name="W7500" target="8" version="2">
+  <configuration Name="Common" gcc_cplusplus_language_standard="gnu++11" />
   <configuration
     Name="Debug"
     c_preprocessor_definitions="DEBUG"
@@ -43,7 +44,7 @@
       arm_target_loader_applicable_loaders="Flash"
       arm_target_loader_default_loader="Flash"
       arm_target_trace_interface_type="None"
-      c_user_include_directories="$(TargetsDir)/WIZnet/W7500x"
+      c_user_include_directories="$(ProjectDir)/yss/inc;$(ProjectDir)/app/inc"
       debug_register_definition_file="$(TargetsDir)/WIZnet/W7500x/W7500_Peripherals.xml"
       linker_memory_map_file="$(TargetsDir)/WIZnet/W7500x/W7500_MemoryMap.xml"
       linker_printf_fmt_level="long long"
@@ -66,6 +67,11 @@
       arm_target_loader_can_unlock_range="No"
       target_reset_script="FLASHReset()" />
     <configuration Name="RAM" target_reset_script="Reset()" />
+    <folder Name="Source Files">
+      <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
+      <folder Name="app" exclude="" filter="" path="app" recurse="Yes" />
+      <folder Name="yss" exclude="" filter="" path="yss" recurse="Yes" />
+    </folder>
     <folder Name="System Files">
       <file file_name="$(TargetsDir)/WIZnet/$(DeviceVectorsFile)" />
       <file file_name="$(StudioDir)/source/thumb_crt0.s" />

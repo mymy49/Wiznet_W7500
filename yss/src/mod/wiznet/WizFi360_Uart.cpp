@@ -27,6 +27,9 @@
 #include <mod/wiznet/WizFi360_Uart.h>
 #include <yss/thread.h>
 #include <yss/debug.h>
+#include <drv/Uart.h>
+
+#if USE_GUI && !defined(YSS_DRV_UART_UNSUPPORTED)
 
 WizFi360_Uart::WizFi360_Uart(void)
 {
@@ -79,4 +82,6 @@ void WizFi360_Uart::flush(void)
 {
 	mPeri->flush();
 }
+
+#endif
 

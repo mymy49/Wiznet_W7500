@@ -24,8 +24,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 
 #include <config.h>
+#include <drv/Spi.h>
 
-#if USE_GUI == true
+#if USE_GUI && !defined(YSS_DRV_SPI_UNSUPPORTED)
 
 #include <mod/tft_lcd_driver/ILI9488_spi_with_Brush_RGB888.h>
 

@@ -24,8 +24,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 
 #include <config.h>
+#include <drv/Spi.h>
 
-#if USE_GUI
+#if USE_GUI && !defined(YSS_DRV_SPI_UNSUPPORTED)
 
 #include <mod/spi_tft_lcd/ER_TFTM032_3.h>
 
