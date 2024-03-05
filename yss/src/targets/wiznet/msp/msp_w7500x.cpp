@@ -33,7 +33,11 @@
 
 void __WEAK initializeSystem(void)
 {
-
+#if defined(HSE_CLOCK_FREQ)
+	clock.enableHse(HSE_CLOCK_FREQ);
+#endif
+	
+	
 }
 
 void initializeDma(void)
