@@ -24,14 +24,8 @@
 #include <yss.h>
 #include <bsp.h>
 
-int main(void)
+void thread_testLed(void)
 {
-	// 운영체체 초기화
-	initializeYss();
-
-	// 보드 초기화
-	initializeBoard();
-
 	while(1)
 	{
 		Led::set(true, false, false);
@@ -45,5 +39,22 @@ int main(void)
 		Led::set(false, false, true);
 		for(volatile uint32_t i = 0; i < 10000; i++)
 			thread::yield();
+	}	
+}
+
+int main(void)
+{
+	// 운영체체 초기화
+	initializeYss();
+
+	// 보드 초기화
+	initializeBoard();
+	
+	// thread_testLed 쓰레드를 스케줄러에 등록
+	thread::add(thread_testLed, 512);
+	
+	while(1)
+	{
+		thread::yield();
 	}
 }
