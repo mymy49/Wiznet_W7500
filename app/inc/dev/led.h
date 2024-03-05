@@ -21,29 +21,15 @@
 	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include <yss.h>
-#include <bsp.h>
+#ifndef DEV_LED__H_
+#define DEV_LED__H_
 
-int main(void)
+namespace Led
 {
-	// 운영체체 초기화
-	initializeYss();
+	void initialize(void);
 
-	// 보드 초기화
-	initializeBoard();
-
-	while(1)
-	{
-		Led::set(true, false, false);
-		for(volatile uint32_t i = 0; i < 10000; i++)
-			thread::yield();
-
-		Led::set(false, true, false);
-		for(volatile uint32_t i = 0; i < 10000; i++)
-			thread::yield();
-
-		Led::set(false, false, true);
-		for(volatile uint32_t i = 0; i < 10000; i++)
-			thread::yield();
-	}
+	void set(bool r, bool g, bool b);
 }
+
+#endif
+

@@ -21,29 +21,24 @@
 	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include <yss.h>
-#include <bsp.h>
+#include <dev/led.h>
+#include <yss/instance.h>
 
-int main(void)
+namespace Led
 {
-	// 운영체체 초기화
-	initializeYss();
-
-	// 보드 초기화
-	initializeBoard();
-
-	while(1)
+	void initialize(void)
 	{
-		Led::set(true, false, false);
-		for(volatile uint32_t i = 0; i < 10000; i++)
-			thread::yield();
+		gpioC.setAsOutput(8);
+		gpioC.setAsOutput(9);
+		gpioC.setAsOutput(5);
 
-		Led::set(false, true, false);
-		for(volatile uint32_t i = 0; i < 10000; i++)
-			thread::yield();
+		set(false, false, false);
+	}
 
-		Led::set(false, false, true);
-		for(volatile uint32_t i = 0; i < 10000; i++)
-			thread::yield();
+	void set(bool r, bool g, bool b)
+	{
+		gpioC.setOutput(8, !r);
+		gpioC.setOutput(9, !g);
+		gpioC.setOutput(5, !b);
 	}
 }
