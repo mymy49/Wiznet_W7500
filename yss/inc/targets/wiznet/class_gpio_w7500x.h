@@ -40,7 +40,7 @@ public:
 	//		출력으로 변경할 핀의 번호를 설정한다.
 	// uint8_t otype
 	//		출력핀의 출력 타입을 설정한다. enum OTYPE을 사용한다.
-	//error setAsOutput(uint8_t pin, uint8_t ospeed = define::gpio::ospeed::MID, uint8_t otype = define::gpio::otype::PUSH_PULL);
+	error setAsOutput(uint8_t pin, uint8_t strength = define::gpio::strength::HIGH, uint8_t otype = define::gpio::otype::PUSH_PULL);
 
 	//void setPackageAsAltFunc(AltFunc *altport, uint8_t numOfPort, uint8_t ospeed, uint8_t otype);
 
@@ -50,7 +50,7 @@ public:
 
 	//void setAsAnalog(uint8_t pin);
 
-	//void setOutput(uint8_t pin, bool data);
+	void setOutput(uint8_t pin, bool data);
 
 	//void setPullUpDown(uint8_t pin, uint8_t pupd);
 
@@ -62,14 +62,18 @@ public:
 	struct setup_t
 	{
 		YSS_GPIO_Peri *dev;
-		uint8_t exti;
+		PORTX_TypeDef *afc;
+		PORTX_TypeDef *padcon;
+		const int8_t *outputAf;
 	};
 
 	Gpio(const Drv::setup_t drvSetup, const setup_t setup);
 
 private:
 	YSS_GPIO_Peri *mDev;
-	uint8_t mExti;
+	PORTX_TypeDef *mAfc;
+	PORTX_TypeDef *mPadcon;
+	const int8_t *mOutputAf;
 };
 
 #endif

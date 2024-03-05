@@ -43,5 +43,38 @@
 #ifndef __DEFINE_W7500X_H
 #define __DEFINE_W7500X_H
 
+namespace define
+{
+	namespace gpio
+	{
+		namespace altfunc
+		{
+			enum
+			{
+				PA0_WKUP,
+				PA0_USART2_CTS,
+			};
+		}
+
+		namespace otype
+		{
+			enum
+			{
+				PUSH_PULL = 0,
+				OPEN_DRAIN = 1,
+			};
+		}
+
+		namespace strength
+		{
+			enum
+			{
+				HIGH = 0,
+				LOW = 1,
+			};
+		}
+	}
+}
+
 #endif
 
