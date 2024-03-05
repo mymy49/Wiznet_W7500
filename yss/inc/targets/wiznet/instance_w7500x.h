@@ -28,21 +28,15 @@
 
 #include <drv/peripheral.h>
 
-#if defined(GPIOA)
+extern Clock clock;
+
 extern Gpio gpioA;
-#endif
 
-#if defined(GPIOB)
 extern Gpio gpioB;
-#endif
 
-#if defined(GPIOC)
 extern Gpio gpioC;
-#endif
 
-#if defined(GPIOD)
 extern Gpio gpioD;
-#endif
 
 #endif
 

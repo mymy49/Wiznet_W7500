@@ -215,7 +215,11 @@ static void enableSpi2Interrupt(bool en)
 static void resetSpi2(void)
 {
 	clock.lock();
+#if defined(STM32G4)
     clock.resetApb1_1(RCC_APB1RSTR1_SPI2RST_Pos);
+#else
+    clock.resetApb1(RCC_APB1RSTR_SPI2RST_Pos);
+#endif
 	clock.unlock();
 }
 
