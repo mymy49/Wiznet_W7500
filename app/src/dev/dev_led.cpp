@@ -28,17 +28,21 @@ namespace Led
 {
 	void initialize(void)
 	{
+		gpioC.lock();
 		gpioC.setAsOutput(8);
 		gpioC.setAsOutput(9);
 		gpioC.setAsOutput(5);
+		gpioC.unlock();
 
 		set(false, false, false);
 	}
 
 	void set(bool r, bool g, bool b)
 	{
+		gpioC.lock();
 		gpioC.setOutput(8, !r);
 		gpioC.setOutput(9, !g);
 		gpioC.setOutput(5, !b);
+		gpioC.unlock();
 	}
 }
