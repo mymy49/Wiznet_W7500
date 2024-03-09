@@ -40,5 +40,61 @@ error Clock::enableHse(uint32_t hseHz)
 	return error::ERROR_NONE;
 }
 
+uint32_t Clock::getRclkFrequency(void)
+{
+	return 8000000;
+}
+
+uint32_t Clock::getOclkFrequency(void)
+{
+	return gHseFreq;
+}
+
+uint32_t Clock::getMclkFrequency(void)
+{
+	uint32_t clk;
+
+	// PLL 출력 활성화 확인
+	if(~CRG->PLL_OER & CRG_PLL_OER_PLLOEN)
+		return 0;
+	
+	// PLL 소스 확인
+	if(CRG->PLL_IFSR & CRG_PLL_IFSR_PLLIS)
+		clk = getOclkFrequency();
+	else
+		clk = getRclkFrequency();
+	
+	// PLL 출력이 바이패스 설정되어 있는지 확인
+	if(CRG->PLL_BPR & CRG_PLL_BPR_PLLBP)
+		return clk;
+	
+	clk = clk * ((CRG->PLL_FCR & CRG_PLL_FCR_M) >> CRG_PLL_FCR_M_Pos) / ((CRG->PLL_FCR & CRG_PLL_FCR_N) >> CRG_PLL_FCR_N_Pos);
+
+	return clk;
+}
+
+uint32_t Clock::getFclkFrequency(void)
+{
+	uint32_t clk = 0;
+
+	switch(CRG->FCLK_SSR & CRG_FCLK_SSR_FCKSRC)
+	{
+	case 0 :
+	case 1 :
+		clk = getMclkFrequency();
+		break;
+
+	case 2 :
+		clk = getRclkFrequency();
+		break;
+
+	case 3 :
+		clk = getOclkFrequency();
+		break;
+	}
+
+	return clk >> (CRG->FCLK_PVSR & CRG_FCLK_PVSR_FCKPRE);
+}
+
 #endif
 

@@ -102,8 +102,11 @@
 
 /****************  Bit definition for CRG_PLL_FCR register  *******************/
 #define CRG_PLL_FCR_M                   (0x3F0000UL)        /*!< Loop divider control bits */
+#define CRG_PLL_FCR_M_Pos               16
 #define CRG_PLL_FCR_N                   (0x003F00UL)        /*!< Pre divider control bits */
+#define CRG_PLL_FCR_N_Pos               8
 #define CRG_PLL_FCR_OD                  (0x000003UL)        /*!< Output divider control bits */
+#define CRG_PLL_FCR_OD_Pos              0
 
 /****************  Bit definition for CRG_PLL_OER register  *******************/
 #define CRG_PLL_OER_PLLOEN              (0x1UL)             /*!< PLL output flag */

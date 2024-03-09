@@ -44,6 +44,31 @@ public:
 	//		입력이 크리스탈일 경우에는 false로 설정합니다.
 	//		입력이 오실레이터일 경우나 클럭 소스를 직접 입력 받을 경우 bypass를 true로 설정합니다.
 	error enableHse(uint32_t hseHz) __attribute__((optimize("-O1")));
+	
+	// 내부 RC 오실레이터의 주파수를 얻습니다.
+	// 
+	// 반환
+	//		RC 오실레이터의 주파수를 반환 합니다.
+	uint32_t getRclkFrequency(void) __attribute__((optimize("-O1")));
+
+	// 외부 오실레이터의 주파수를 얻습니다.
+	// 
+	// 반환
+	//		외부 오실레이터의 주파수를 반환 합니다.
+	uint32_t getOclkFrequency(void) __attribute__((optimize("-O1")));
+
+	// PLL의 출력 주파수(MCLK)를 얻습니다.
+	// 
+	// 반환
+	//		MCLK 주파수를 반환 합니다.
+	uint32_t getMclkFrequency(void) __attribute__((optimize("-O1")));
+
+	// System Clock 주파수(FCLK)를 얻습니다.
+	// 
+	// 반환
+	//		FCLK 주파수를 반환 합니다.
+	uint32_t getFclkFrequency(void) __attribute__((optimize("-O1")));
+
 private:
 };
 

@@ -46,18 +46,15 @@ static void isr(void)
 		gPreUpdateFlag = false;
 #endif
 }
-#endif
 
 void initializeSystemTime(void)
 {
-#ifndef YSS_DRV_TIMER_UNSUPPORTED
 	YSS_TIMER.enableClock();
 	YSS_TIMER.initializeAsSystemRuntime();
 	gOverFlowCnt = YSS_TIMER.getOverFlowCount();
 	YSS_TIMER.setUpdateIsr(isr);
 	YSS_TIMER.start();
 	YSS_TIMER.enableInterrupt();
-#endif
 }
 
 namespace runtime
@@ -161,4 +158,4 @@ uint64_t getUsec(void)
 }
 
 }
-
+#endif
