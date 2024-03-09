@@ -620,6 +620,15 @@ typedef struct
 #define GPIOC               ((GPIO_TypeDef *)           GPIOC_BASE)
 #define GPIOD               ((GPIO_TypeDef *)           GPIOD_BASE)
 
+#define RUNTIME_PWM0		0
+#define RUNTIME_PWM1		1
+#define RUNTIME_PWM2		2
+#define RUNTIME_PWM3		3
+#define RUNTIME_PWM4		4
+#define RUNTIME_PWM5		5
+#define RUNTIME_PWM6		6
+#define RUNTIME_PWM7		7
+
 /**
  * @}
  */
