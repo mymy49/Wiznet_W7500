@@ -23,23 +23,22 @@
 
 #include <yss.h>
 #include <bsp.h>
+#include <yss/debug.h>
+#include <util/runtime.h>
 
 void thread_testLed(void)
 {
 	while(1)
 	{
 		Led::set(true, false, false);
-		for(volatile uint32_t i = 0; i < 10000; i++)
-			thread::yield();
+		thread::delay(100);
 
 		Led::set(false, true, false);
-		for(volatile uint32_t i = 0; i < 10000; i++)
-			thread::yield();
+		thread::delay(100);
 
 		Led::set(false, false, true);
-		for(volatile uint32_t i = 0; i < 10000; i++)
-			thread::yield();
-	}	
+		thread::delay(100);
+	}
 }
 
 int main(void)
@@ -52,9 +51,17 @@ int main(void)
 	
 	// thread_testLed 쓰레드를 스케줄러에 등록
 	thread::add(thread_testLed, 512);
+
+	debug_printf("MCLK = %d\n", clock.getMclkFrequency());
+	
+	debug_printf("OCLK = %d\n", clock.getOclkFrequency());
+
+	debug_printf("RCLK = %d\n", clock.getRclkFrequency());
+
+	debug_printf("FCLK = %d\n", clock.getFclkFrequency());
 	
 	while(1)
 	{
-		thread::yield();
+		debug_printf("%d\r", (uint32_t)runtime::getMsec());
 	}
 }
