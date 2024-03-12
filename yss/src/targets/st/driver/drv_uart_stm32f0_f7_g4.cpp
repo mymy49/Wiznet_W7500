@@ -181,7 +181,7 @@ error Uart::send(void *src, int32_t  size)
 		return error::ERROR_NONE;
 
 	if(mTxDma == 0)
-		return error::DMA;
+		return error::DMA_ERROR;
 
 	mTxDma->lock();
 

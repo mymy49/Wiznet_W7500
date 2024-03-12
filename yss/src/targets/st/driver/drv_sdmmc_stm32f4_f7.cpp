@@ -254,7 +254,7 @@ error_handle :
 	else if(status & SDMMC_STA_RXOVERR_Msk)
 		return error::RX_OVERRUN;
 	else 
-		return error::DMA;
+		return error::DMA_ERROR;
 }
 
 error Sdmmc::waitUntilWriteComplete(void)
@@ -301,7 +301,7 @@ error_handle :
 	else if(status & SDMMC_STA_TXUNDERR_Msk)
 		return error::TX_UNDERRUN;
 	else 
-		return error::DMA;
+		return error::DMA_ERROR;
 }
 
 void Sdmmc::unlockRead(void)

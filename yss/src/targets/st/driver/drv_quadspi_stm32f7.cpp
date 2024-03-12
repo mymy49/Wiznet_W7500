@@ -120,7 +120,7 @@ error Quadspi::readRegister(uint8_t cmd, void *des, uint32_t size, uint32_t time
 	Timeout tout(timeout);
 
 	if(mRxDma == 0)
-		return error::DMA;
+		return error::DMA_ERROR;
 
 	if(size == 0)
 		return error::ERROR_NONE;
@@ -237,7 +237,7 @@ error Quadspi::write(uint8_t cmd, uint32_t addr, void *src, uint32_t size, uint3
 	error result;
 
 	if(mTxDma == 0)
-		return error::DMA;
+		return error::DMA_ERROR;
 
 	if(size == 0)
 		return error::ERROR_NONE;
@@ -278,7 +278,7 @@ error Quadspi::read(uint8_t cmd, uint32_t addr, void *des, uint32_t size, uint32
 	Timeout tout(timeout);
 
 	if(mRxDma == 0)
-		return error::DMA;
+		return error::DMA_ERROR;
 
 	if(size == 0)
 		return error::ERROR_NONE;

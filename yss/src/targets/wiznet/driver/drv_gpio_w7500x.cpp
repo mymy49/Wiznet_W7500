@@ -39,7 +39,7 @@ Gpio::Gpio(const Drv::setup_t drvSetup, const setup_t setup) : GpioBase(drvSetup
 	mOutputAf = setup.outputAf;
 }
 
-error Gpio::setAsOutput(uint8_t pin, uint8_t strength, uint8_t otype)
+error Gpio::setAsOutput(uint8_t pin, strength_t strength, otype_t otype)
 {
 	if(pin > 15)
 		return error::PIN_INDEX_OVER;
