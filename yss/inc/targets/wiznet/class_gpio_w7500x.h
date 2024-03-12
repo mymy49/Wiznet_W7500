@@ -32,15 +32,29 @@
 class Gpio : public GpioBase
 {
 public:
-	// 핀을 출력으로 설정한다.
+	typedef enum 
+	{
+		PUSH_PULL = 0,
+		OPEN_DRAIN
+	}otype_t;
+
+	typedef enum
+	{
+		HIGH = 0,
+		LOW
+	}strength_t;
+
+	// 핀을 출력으로 설정합니다.
 	// 
 	// 반환
-	//		에러를 반환한다.
+	//		에러를 반환합니다.
 	// uint8_t pin
-	//		출력으로 변경할 핀의 번호를 설정한다.
-	// uint8_t otype
-	//		출력핀의 출력 타입을 설정한다. enum OTYPE을 사용한다.
-	error setAsOutput(uint8_t pin, uint8_t strength = define::gpio::strength::HIGH, uint8_t otype = define::gpio::otype::PUSH_PULL) __attribute__((optimize("-O1")));
+	//		출력으로 변경할 핀의 번호를 설정합니다.
+	// strength_t strength
+	//		출력의 전류 세기를 설정합니다. (LOW = 3mA / HIGH = 6mA)
+	// otype_t otype
+	//		출력핀의 출력 종류를 설정합니다.
+	error setAsOutput(uint8_t pin, strength_t strength = HIGH, otype_t otype = PUSH_PULL) __attribute__((optimize("-O1")));
 
 	//void setPackageAsAltFunc(AltFunc *altport, uint8_t numOfPort, uint8_t ospeed, uint8_t otype);
 
@@ -50,6 +64,12 @@ public:
 
 	//void setAsAnalog(uint8_t pin);
 
+	// 핀의 출력 값을 설정합니다.
+	// 
+	// uint8_t pin
+	//		출력을 변경할 핀의 번호를 설정합니다.
+	// bool data
+	//		출력의 값을 설정합니다.
 	void setOutput(uint8_t pin, bool data) __attribute__((optimize("-O1")));
 
 	//void setPullUpDown(uint8_t pin, uint8_t pupd);

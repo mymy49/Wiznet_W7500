@@ -33,11 +33,10 @@
 
 void __WEAK initializeSystem(void)
 {
-#if defined(HSE_CLOCK_FREQ)
-	clock.enableHse(HSE_CLOCK_FREQ);
+#if defined(OSC_CLOCK_FREQ)
+	clock.enableOsc(OSC_CLOCK_FREQ);
+	clock.setPllFrequency(Clock::PLL_SRC_OCLK, 48000000 / OSC_CLOCK_FREQ, 1, 0);
 #endif
-	
-	
 }
 
 void initializeDma(void)

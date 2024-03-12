@@ -55,24 +55,6 @@ namespace define
 				PA0_USART2_CTS,
 			};
 		}
-
-		namespace otype
-		{
-			enum
-			{
-				PUSH_PULL = 0,
-				OPEN_DRAIN = 1,
-			};
-		}
-
-		namespace strength
-		{
-			enum
-			{
-				HIGH = 0,
-				LOW = 1,
-			};
-		}
 	}
 }
 

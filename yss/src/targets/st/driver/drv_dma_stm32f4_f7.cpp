@@ -107,7 +107,7 @@ error Dma::transfer(DmaInfo &dmaInfo, void *data, int32_t  size)
 	mThreadId = -1;
 
 	if(mErrorFlag)
-		return error::DMA;
+		return error::DMA_ERROR;
 	else
 		return error::ERROR_NONE;
 }					
@@ -144,7 +144,7 @@ error Dma::send(DmaInfo &dmaInfo, void *src, int32_t  size)
 	mThreadId = -1;
 
 	if(mErrorFlag)
-		return error::DMA;
+		return error::DMA_ERROR;
 	else
 		return error::ERROR_NONE;
 }
@@ -178,7 +178,7 @@ error Dma::receive(DmaInfo &dmaInfo, void *des, int32_t  size)
 		thread::yield();
 
 	if (mErrorFlag)
-		return error::DMA;
+		return error::DMA_ERROR;
 	else
 		return error::ERROR_NONE;
 }
