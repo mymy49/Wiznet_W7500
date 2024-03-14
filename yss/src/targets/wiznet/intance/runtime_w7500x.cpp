@@ -142,8 +142,8 @@ void initializeSystemTime(void)
 	RUNTIME_DEV->PR = clk / 1000000;
 	RUNTIME_DEV->IER = PWM_CHn_IER_MIE | PWM_CHn_IER_OIE;
 
-	PWM->SSR = 1 << YSS_TIMER;
-	PWM->IER = 1 << YSS_TIMER;
+	PWM->SSR |= 1 << YSS_TIMER;
+	PWM->IER |= 1 << YSS_TIMER;
 
 	NVIC_EnableIRQ(RUNTIME_IRQ);
 }

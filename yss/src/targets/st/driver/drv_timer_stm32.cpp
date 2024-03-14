@@ -36,7 +36,6 @@ Timer::Timer(const Drv::setup_t drvSetup, const setup_t setup) : Drv(drvSetup)
 {
 	mDev = setup.dev;
 	mIsrUpdate = 0;
-	mTimeUpdateCnt = 0;
 }
 
 void Timer::initializeAsSystemRuntime(void)
@@ -89,18 +88,6 @@ uint32_t Timer::getCounterValue(void)
 uint32_t Timer::getOverFlowCount(void)
 {
 	return 60000;
-}
-
-void Timer::setUpdateIsr(void (*isr)(void))
-{
-	mIsrUpdate = isr;
-}
-
-void Timer::isrUpdate(void)
-{
-	if (mIsrUpdate)
-		mIsrUpdate();
-	mTimeUpdateCnt++;
 }
 
 void Timer::setOnePulse(bool en)

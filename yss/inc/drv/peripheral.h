@@ -85,6 +85,11 @@
 #include <targets/wiznet/w7500x.h>
 #include <targets/wiznet/define_w7500x.h>
 
+#elif defined(CPU_MIMXRT1011DAE5A)
+
+#include <targets/nxp/MIMXRT1011.h>
+//#include <targets/nxp/define_w7500x.h>
+
 #else
 
 typedef volatile int IRQn_Type;

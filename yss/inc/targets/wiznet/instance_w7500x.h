@@ -38,5 +38,21 @@ extern Gpio gpioC;
 
 extern Gpio gpioD;
 
+extern Timer timer0;
+
+extern Timer timer1;
+
+extern Timer timer2;
+
+extern Timer timer3;
+
+extern Timer timer4;
+
+extern Timer timer5;
+
+extern Timer timer6;
+
+extern Timer timer7;
+
 #endif
 

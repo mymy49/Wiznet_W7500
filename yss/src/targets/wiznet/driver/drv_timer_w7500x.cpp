@@ -23,88 +23,39 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
-#if defined(NRF52840_XXAA)
-
 #include <drv/peripheral.h>
+
+#if defined(W7500)
+
 #include <drv/Timer.h>
 #include <yss/reg.h>
-#include <targets/nordic/nrf52840_bitfields.h>
+#include <targets/wiznet/bitfield_w7500x.h>
 
-Timer::Timer(YSS_TIMER_Dev *dev, const Drv::setup_t drvConfig) : Drv(drvConfig)
-{
-	mDev = dev;
-	mIsrUpdate = 0;
-}
 
-void Timer::initializeAsSystemRuntime(void)
+Timer::Timer(const Drv::setup_t drvSetup, const setup_t setup) : Drv(drvSetup)
 {
-	mDev->MODE = 0;			// Timer Mode
-	mDev->BITMODE = 3;			// 32bit
-	mDev->PRESCALER = 4;		// 1 MHz
-	mDev->SHORTS = 0x01;		// CC[0] 설정
-	mDev->CC[0] = 0xFFFFFFFF;
-}
-
-void Timer::initialize(uint32_t psc, uint32_t arr)
-{
-	mDev->MODE = 0;			// Timer Mode
-	mDev->BITMODE = 3;			// 32bit
-	mDev->PRESCALER = 0;		// 16 MHz
-	mDev->CC[0] = arr;
-	mDev->SHORTS = 0x01;		// CC[0] 설정
+	mDev = setup.dev;
+	mIndex = setup.index;
 }
 
 void Timer::initialize(uint32_t freq)
 {
-	uint32_t psc, arr, clk = 16000000;
+	uint32_t arr, clk = getClockFrequency();
 
-	arr = clk / freq;
-
-	mDev->MODE = 0;			// Timer Mode
-	mDev->BITMODE = 3;			// 32bit
-	mDev->PRESCALER = 0;		// 16 MHz
-	mDev->CC[0] = arr;
-	mDev->SHORTS = 0x01;		// CC[0] 설정
-}
-
-void Timer::enableUpdateInterrupt(bool en)
-{
-	if(en)
-		mDev->INTENSET = TIMER_INTENSET_COMPARE0_Msk;	// CC[0] 활성화
-	else
-		mDev->INTENCLR = TIMER_INTENCLR_COMPARE0_Msk;	// CC[0] 비활성화
+	mDev->PDMR = PWM_CHn_PDMR_PDM;
+	mDev->LR = clk / freq;
+	mDev->IER = PWM_CHn_IER_OIE;
 }
 
 void Timer::start(void)
 {
-	mDev->TASKS_START = 1;
+	PWM->SSR |= 1 << mIndex;
 }
 
 void Timer::stop(void)
 {
-	mDev->TASKS_STOP = 1;
-}
-
-uint32_t Timer::getCounterValue(void)
-{
-	mDev->TASKS_CAPTURE[1] = 1;
-	return mDev->CC[1];
-}
-
-uint32_t Timer::getOverFlowCount(void)
-{
-	return 0xFFFFFFFF;
-}
-
-void Timer::setUpdateIsr(void (*isr)(void))
-{
-	mIsrUpdate = isr;
-}
-
-void Timer::isrUpdate(void)
-{
-	if (mIsrUpdate)
-		mIsrUpdate();
+	PWM->SSR &= ~(1 << mIndex);
 }
 
 #endif
+
