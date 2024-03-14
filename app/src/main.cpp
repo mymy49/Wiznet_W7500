@@ -26,6 +26,8 @@
 #include <yss/debug.h>
 #include <util/runtime.h>
 
+uint32_t gTimer0Counter;
+
 void thread_testLed(void)
 {
 	while(1)
@@ -41,6 +43,11 @@ void thread_testLed(void)
 	}
 }
 
+void isr_timer0(void)
+{
+	gTimer0Counter++;
+}
+
 int main(void)
 {
 	// 운영체체 초기화
@@ -48,8 +55,14 @@ int main(void)
 
 	// 보드 초기화
 	initializeBoard();
+
+	// 타이머0 1kHz 주기로 동작하도록 초기화
+	timer0.enableClock();
+	timer0.initialize(1000);
+	timer0.setUpdateIsr(isr_timer0);
+	timer0.start();
+	timer0.enableInterrupt();
 	
-	// thread_testLed 쓰레드를 스케줄러에 등록
 	thread::add(thread_testLed, 512);
 
 	debug_printf("MCLK = %d\n", clock.getMclkFrequency());
@@ -62,6 +75,6 @@ int main(void)
 	
 	while(1)
 	{
-		debug_printf("%d\r", (uint32_t)runtime::getMsec());
+		debug_printf("%d, %d\r", (uint32_t)runtime::getMsec(), gTimer0Counter);
 	}
 }
