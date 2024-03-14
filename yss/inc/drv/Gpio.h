@@ -65,7 +65,7 @@ typedef GPIO_TypeDef			YSS_GPIO_Peri;
 #elif defined(CPU_MIMXRT1011DAE5A)
 
 typedef GPIO_TypeDef			YSS_GPIO_Peri;
-#define GpioTargetHeaderFile	<targets/wiznet/class_gpio_w7500x.h>
+#define GpioTargetHeaderFile	<targets/nxp/class_gpio_mimxrt.h>
 
 #else
 

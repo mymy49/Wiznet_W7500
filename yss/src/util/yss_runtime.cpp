@@ -28,7 +28,7 @@
 
 #include <drv/peripheral.h>
 
-#ifndef YSS_DRV_TIMER_UNSUPPORTED
+#if !defined(YSS_DRV_TIMER_UNSUPPORTED) && !defined(W7500)
 static uint64_t gYssTimeSum;
 static uint32_t gOverFlowCnt;
 #if !(defined(STM32F7) || defined(STM32G4))
