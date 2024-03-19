@@ -24,7 +24,7 @@
 #ifndef DEV_LED__H_
 #define DEV_LED__H_
 
-namespace Led
+namespace led
 {
 	void initialize(void);
 

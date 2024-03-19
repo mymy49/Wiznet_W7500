@@ -27,6 +27,6 @@
 void initializeBoard(void)
 {
 	// LED 초기화
-	Led::initialize();
+	led::initialize();
 }
 

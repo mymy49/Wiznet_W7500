@@ -32,13 +32,13 @@ void thread_testLed(void)
 {
 	while(1)
 	{
-		Led::set(true, false, false);
+		led::set(true, false, false);
 		thread::delay(100);
 
-		Led::set(false, true, false);
+		led::set(false, true, false);
 		thread::delay(100);
 
-		Led::set(false, false, true);
+		led::set(false, false, true);
 		thread::delay(100);
 	}
 }
@@ -56,7 +56,7 @@ int main(void)
 	// 보드 초기화
 	initializeBoard();
 
-	// 타이머0 1kHz 주기로 동작하도록 초기화
+	// TIMER0을 1kHz 주기로 동작하도록 초기화
 	timer0.enableClock();
 	timer0.initialize(1000);
 	timer0.setUpdateIsr(isr_timer0);
@@ -73,6 +73,8 @@ int main(void)
 
 	debug_printf("FCLK = %d\n", clock.getFclkFrequency());
 	
+	debug_printf("TIMER = %d\n", timer0.getClockFrequency());
+
 	while(1)
 	{
 		debug_printf("%d, %d\r", (uint32_t)runtime::getMsec(), gTimer0Counter);

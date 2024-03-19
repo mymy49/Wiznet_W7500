@@ -24,7 +24,7 @@
 #include <dev/led.h>
 #include <yss/instance.h>
 
-namespace Led
+namespace led
 {
 	void initialize(void)
 	{
