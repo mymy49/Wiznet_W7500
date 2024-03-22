@@ -57,11 +57,11 @@ int main(void)
 	initializeBoard();
 
 	// TIMER0을 1kHz 주기로 동작하도록 초기화
-	timer0.enableClock();
-	timer0.initialize(1000);
-	timer0.setUpdateIsr(isr_timer0);
-	timer0.start();
-	timer0.enableInterrupt();
+	timer3.enableClock();
+	timer3.initialize(1000);
+	timer3.setUpdateIsr(isr_timer0);
+	timer3.start();
+	timer3.enableInterrupt();
 	
 	thread::add(thread_testLed, 512);
 
@@ -73,7 +73,7 @@ int main(void)
 
 	debug_printf("FCLK = %d\n", clock.getFclkFrequency());
 	
-	debug_printf("TIMER = %d\n", timer0.getClockFrequency());
+	debug_printf("TIMER = %d\n", timer3.getClockFrequency());
 
 	while(1)
 	{

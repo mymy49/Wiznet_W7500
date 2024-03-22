@@ -47,7 +47,7 @@
 // ####################### 스케줄러 설정 #######################
 
 // runtime 함수를 지원할 PWM 장치 설정 (RUNTIME_PWM0 ~ RUNTIME_PWM7)
-#define YSS_TIMER			RUNTIME_PWM0
+#define YSS_TIMER			RUNTIME_PWM2
 
 // 쓰레드당 할당 받는 Systick Clock의 수
 #define THREAD_GIVEN_CLOCK	20000
@@ -77,7 +77,7 @@
 #define TIMER0_ENABLE		false
 #define TIMER1_ENABLE		false
 #define TIMER2_ENABLE		false
-#define TIMER3_ENABLE		false
+#define TIMER3_ENABLE		true
 #define TIMER4_ENABLE		false
 #define TIMER5_ENABLE		false
 #define TIMER6_ENABLE		false
