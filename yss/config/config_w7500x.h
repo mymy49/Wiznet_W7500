@@ -33,10 +33,10 @@
 // ####################### 외부 크리스탈 클럭 주파수 설정 #######################
 // 아래 HSE_CLOCK_FREQ가 정의 되어 있으면 HSE 클럭을 소스로 PLL 설정이 이뤄집니다.
 // 정의되어 있지 않으면 HSI 클럭을 소스로 PLL 설정이 이뤄집니다.
-// OSC 클럭은 8의 배수를 권장합니다.
-#define OSC_CLOCK_FREQ		8000001
+// OSC 클럭은 8MHz의 배수를 권장합니다.
+//#define OSC_CLOCK_FREQ		8000000
 
-#if	(48000000 % OSC_CLOCK_FREQ)
+#if	(8000000 % OSC_CLOCK_FREQ)
 #error "아래 사항을 따르세요."
 // 1. /yss/src/targets/wiznet/msp/msp_w7500x.cpp 파일에서 initializeSystem() 함수를 사용자의 소스코드 파일로 복사합니다.
 // 2. 사용자 코드로 복사한 initializeSystem() 함수에서 __WEAK 예약어를 없앱니다.
