@@ -32,6 +32,10 @@
 
 typedef TIM_TypeDef			YSS_PWM_Peri;
 
+#elif defined(W7500)
+
+typedef PWM_TypeDef			YSS_PWM_Peri;
+
 #else
 
 #define YSS_DRV_PWM_UNSUPPORTED
@@ -41,13 +45,15 @@ typedef TIM_TypeDef			YSS_PWM_Peri;
 #ifndef YSS_DRV_PWM_UNSUPPORTED
 
 #include "Drv.h"
+#include <yss/error.h>
 
 class Pwm : public Drv
 {
-  public:
-	void initialize(uint32_t freq, bool risingAtMatch = false);
+public:
+	// 
+	error initialize(uint32_t freq, bool risingAtMatch = false);
 
-	void initialize(uint32_t psc, uint32_t arr, bool risingAtMatch = false);
+	error initialize(uint32_t psc, uint32_t arr, bool risingAtMatch = false);
 
 	void changeFrequency(uint32_t freq);
 

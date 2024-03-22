@@ -23,52 +23,27 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef YSS_INSTANCE_W7500X__H_
-#define YSS_INSTANCE_W7500X__H_
+#ifndef YSS_CLASS_CLOCK_MIMXRT__H_
+#define YSS_CLASS_CLOCK_MIMXRT__H_
 
-#include <drv/peripheral.h>
+#include <yss/error.h>
+#include <drv/mcu.h>
 
-extern Clock clock;
+class Clock
+{
+public:
+	// 외부 HSE 크리스탈을 활성화 합니다.
+	//
+	// 반환
+	//		에러를 반환합니다.
+	// uint32_t hseHz
+	//		외부 크리스털의 주파수를 HZ 단위로 입력합니다.
+	// useBypass = false
+	//		입력이 크리스탈일 경우에는 false로 설정합니다.
+	//		입력이 오실레이터일 경우나 클럭 소스를 직접 입력 받을 경우 bypass를 true로 설정합니다.
+	error enableOsc(uint32_t hseHz) __attribute__((optimize("-O1")));
 
-extern Gpio gpioA;
-
-extern Gpio gpioB;
-
-extern Gpio gpioC;
-
-extern Gpio gpioD;
-
-extern Timer timer0;
-
-extern Timer timer1;
-
-extern Timer timer2;
-
-extern Timer timer3;
-
-extern Timer timer4;
-
-extern Timer timer5;
-
-extern Timer timer6;
-
-extern Timer timer7;
-
-extern PwmCh1 pwm0;
-
-extern PwmCh1 pwm1;
-
-extern PwmCh1 pwm2;
-
-extern PwmCh1 pwm3;
-
-extern PwmCh1 pwm4;
-
-extern PwmCh1 pwm5;
-
-extern PwmCh1 pwm6;
-
-extern PwmCh1 pwm7;
+private:
+};
 
 #endif
-

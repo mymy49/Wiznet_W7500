@@ -30,6 +30,7 @@
 #include <drv/peripheral.h>
 #include <gui/Bmp565Buffer.h>
 #include <std_ext/string.h>
+#include <yss/error.h>
 
 Bmp565Buffer::Bmp565Buffer(uint32_t pointSize)
 {

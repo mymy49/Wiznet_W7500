@@ -23,13 +23,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
+#if defined(W7500)
+
 #include <config.h>
 #include <yss/instance.h>
 #include <util/runtime.h>
 #include <drv/peripheral.h>
 #include <targets/wiznet/bitfield_w7500x.h>
-
-#if defined(W7500)
 
 #define TOP				0xFFFFFFFF
 
