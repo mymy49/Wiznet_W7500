@@ -51,74 +51,112 @@ class Pwm : public Drv
 {
 public:
 	// 
-	error initialize(uint32_t freq, bool risingAtMatch = false);
+	error initialize(uint32_t freq, bool risingAtMatch = false) __attribute__((optimize("-O1")));
 
-	error initialize(uint32_t psc, uint32_t arr, bool risingAtMatch = false);
+	error initialize(uint32_t psc, uint32_t top, bool risingAtMatch = false) __attribute__((optimize("-O1")));
 
-	void changeFrequency(uint32_t freq);
+	void changeFrequency(uint32_t freq) __attribute__((optimize("-O1")));
 
-	void setOnePulse(bool en);
+	void setOnePulse(bool en) __attribute__((optimize("-O1")));
 
-	void start(void);
+	void start(void) __attribute__((optimize("-O1")));
 
-	void stop(void);
+	void stop(void) __attribute__((optimize("-O1")));
 
-	virtual uint32_t getTopValue(void) = 0;
+	virtual uint32_t getTopValue(void) __attribute__((optimize("-O1"))) = 0;
 
-	virtual void setRatio(float ratio) = 0;
+	virtual void setRatio(float ratio) __attribute__((optimize("-O1"))) = 0;
 
-	virtual void setCompareValue(int32_t  counter) = 0;
+	virtual void setCompareValue(int32_t  counter) __attribute__((optimize("-O1"))) = 0 ;
 
-	Pwm(YSS_PWM_Peri *peri, const Drv::setup_t drvSetup);
+	struct setup_t
+	{
+		YSS_PWM_Peri *dev;
+#if defined(STM32F1) || defined(STM32F4) || defined(STM32F7) || defined(STM32G4) || defined(STM32F0)
+		uint8_t bit;
+#endif
+#if defined(W7500)
+		uint8_t index;
+#endif
+	};
+
+	Pwm(YSS_PWM_Peri *peri, const Drv::setup_t drvSetup) __attribute__((optimize("-O1")));
+
+	Pwm(const Drv::setup_t drvSetup, const setup_t setup) __attribute__((optimize("-O1")));
 
   protected:
-	YSS_PWM_Peri *mPeri;
+	YSS_PWM_Peri *mDev;
 
-	virtual void initializeChannel(bool risingAtMatch = false) = 0;
+#if defined(W7500)
+	uint8_t mIndex;
+	bool mRisingAtMatch;
+#endif
+
+	virtual error initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1"))) = 0;
 };
 
 class PwmCh1 : public Pwm
 {
   public:
+	error initializeChannel(bool risingAtMatch = false);
+
+	virtual uint32_t getTopValue(void);
+
+	virtual void setRatio(float ratio);
+
+	virtual void setCompareValue(int32_t  counter);
+
 	PwmCh1(YSS_PWM_Peri *peri, const Drv::setup_t drvSetup);
 
-	void initializeChannel(bool risingAtMatch = false);
-	uint32_t getTopValue(void);
-	void setRatio(float ratio);
-	void setCompareValue(int32_t  counter);
+	PwmCh1(const Drv::setup_t drvSetup, const setup_t setup) __attribute__((optimize("-O1")));
 };
 
 class PwmCh2 : public Pwm
 {
   public:
+	error initializeChannel(bool risingAtMatch = false);
+
+	virtual uint32_t getTopValue(void);
+
+	virtual void setRatio(float ratio);
+
+	virtual void setCompareValue(int32_t  counter);
+
 	PwmCh2(YSS_PWM_Peri *peri, const Drv::setup_t drvSetup);
 
-	void initializeChannel(bool risingAtMatch = false);
-	uint32_t getTopValue(void);
-	void setRatio(float ratio);
-	void setCompareValue(int32_t  counter);
+	PwmCh2(const Drv::setup_t drvSetup, const setup_t setup) __attribute__((optimize("-O1")));
 };
 
 class PwmCh3 : public Pwm
 {
   public:
+	error initializeChannel(bool risingAtMatch = false);
+
+	virtual uint32_t getTopValue(void);
+
+	virtual void setRatio(float ratio);
+
+	virtual void setCompareValue(int32_t  counter);
+
 	PwmCh3(YSS_PWM_Peri *peri, const Drv::setup_t drvSetup);
 
-	void initializeChannel(bool risingAtMatch = false);
-	uint32_t getTopValue(void);
-	void setRatio(float ratio);
-	void setCompareValue(int32_t  counter);
+	PwmCh3(const Drv::setup_t drvSetup, const setup_t setup) __attribute__((optimize("-O1")));
 };
 
 class PwmCh4 : public Pwm
 {
   public:
+	error initializeChannel(bool risingAtMatch = false);
+
+	virtual uint32_t getTopValue(void);
+
+	virtual void setRatio(float ratio);
+
+	virtual void setCompareValue(int32_t  counter);
+
 	PwmCh4(YSS_PWM_Peri *peri, const Drv::setup_t drvSetup);
 
-	void initializeChannel(bool risingAtMatch = false);
-	uint32_t getTopValue(void);
-	void setRatio(float ratio);
-	void setCompareValue(int32_t  counter);
+	PwmCh4(const Drv::setup_t drvSetup, const setup_t setup) __attribute__((optimize("-O1")));
 };
 
 #endif

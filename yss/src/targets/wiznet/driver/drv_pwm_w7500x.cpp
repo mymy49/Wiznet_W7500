@@ -27,25 +27,102 @@
 
 #if defined(W7500)
 
-#include <config.h>
-#include <yss/instance.h>
+#include <drv/Pwm.h>
+#include <yss/reg.h>
 #include <targets/wiznet/bitfield_w7500x.h>
 
-void __WEAK initializeSystem(void)
+
+Pwm::Pwm(const Drv::setup_t drvSetup, const setup_t setup) : Drv(drvSetup)
 {
-#if defined(OSC_CLOCK_FREQ)
-	clock.enableOsc(OSC_CLOCK_FREQ);
-	clock.setPllFrequency(Clock::PLL_SRC_OCLK, 48000000 / OSC_CLOCK_FREQ, 1, 0);
-#else
-	clock.setPllFrequency(Clock::PLL_SRC_RCLK, 48000000 / 8000000, 1, 0);
-#endif
+	mDev = setup.dev;
+	mIndex = setup.index;
+	mRisingAtMatch = false;
 }
 
-void initializeDma(void)
+error Pwm::initialize(uint32_t psc, uint32_t top, bool risingAtMatch)
 {
+	if(psc > 63)
+		return error::WRONG_CONFIG;
+	
+	mDev->PDMR = PWM_CHn_PDMR_PDM;
+	mDev->PR = psc;
+	mDev->LR = top;
+	mDev->PEEER = PWM_CHn_PEEER_PEEE_1;
+	mRisingAtMatch = risingAtMatch;
 
+	return error::ERROR_NONE;
 }
 
+error Pwm::initialize(uint32_t freq, bool risingAtMatch)
+{
+	uint32_t clk = getClockFrequency();
+
+	mDev->PDMR = PWM_CHn_PDMR_PDM;
+	mDev->LR = (clk / freq) - 1;
+	mDev->PEEER = PWM_CHn_PEEER_PEEE_1;
+	mRisingAtMatch = risingAtMatch;
+
+	return error::ERROR_NONE;
+}
+
+void Pwm::start(void)
+{
+	PWM->SSR |= 1 << mIndex;
+}
+
+void Pwm::stop(void)
+{
+	PWM->SSR &= ~(1 << mIndex);
+}
+
+
+uint32_t PwmCh1::getTopValue(void)
+{
+	return 0;
+}
+
+error PwmCh1::initializeChannel(bool risingAtMatch)
+{
+	return error::ERROR_NONE;
+}
+
+void PwmCh1::setRatio(float ratio)
+{
+	int32_t lr = mDev->LR, mr = (float)lr * ratio;
+
+	if(mr >= lr)
+		mr = lr;
+	else if(mr < 0)
+		mr = 0;
+
+	PWM->SSR &= ~(1 << mIndex);
+	if(mRisingAtMatch)
+		mDev->MR = lr-mr;
+	else
+		mDev->MR = mr;
+	PWM->SSR |= (1 << mIndex);
+}
+
+void PwmCh1::setCompareValue(int32_t counter)
+{
+	int32_t lr = mDev->LR;
+
+	if(counter >= lr)
+		counter = lr;
+	else if(counter < 0)
+		counter = 0;
+
+	PWM->SSR &= ~(1 << mIndex);
+	if(mRisingAtMatch)
+		mDev->MR = lr-counter;
+	else
+		mDev->MR = counter;
+	PWM->SSR |= (1 << mIndex);
+}
+
+PwmCh1::PwmCh1(const Drv::setup_t drvSetup, const setup_t setup) : Pwm(drvSetup, setup)
+{
+}
 
 #endif
 
