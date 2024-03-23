@@ -55,6 +55,9 @@ error Pwm::initialize(uint32_t psc, uint32_t top, bool risingAtMatch)
 
 error Pwm::initialize(uint32_t freq, bool risingAtMatch)
 {
+	if(freq < 1)
+		return error::WRONG_CONFIG;
+
 	uint32_t clk = getClockFrequency();
 
 	mDev->PDMR = PWM_CHn_PDMR_PDM;
@@ -63,6 +66,26 @@ error Pwm::initialize(uint32_t freq, bool risingAtMatch)
 	mRisingAtMatch = risingAtMatch;
 
 	return error::ERROR_NONE;
+}
+
+void Pwm::changeFrequency(uint32_t freq)
+{
+	uint32_t clk = getClockFrequency();
+
+	stop();
+	mDev->PDMR = PWM_CHn_PDMR_PDM;
+	mDev->LR = clk / freq;
+	mDev->PCR = 0;
+	mDev->IER = PWM_CHn_IER_OIE;
+	start();
+}
+
+void Pwm::setOnePulse(bool en)
+{
+	if(en)
+		mDev->PDMR = (~PWM_CHn_PDMR_PDM) & PWM_CHn_PDMR_PDM;		
+	else
+		mDev->PDMR = PWM_CHn_PDMR_PDM;	
 }
 
 void Pwm::start(void)
@@ -78,7 +101,7 @@ void Pwm::stop(void)
 
 uint32_t PwmCh1::getTopValue(void)
 {
-	return 0;
+	return mDev->LR;
 }
 
 error PwmCh1::initializeChannel(bool risingAtMatch)
