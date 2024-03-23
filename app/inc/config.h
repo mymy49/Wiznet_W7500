@@ -73,6 +73,16 @@
 // 1. TIMER, PWM, CAPTURE는 실제 동일한 장치지만 OS 구조상 별도의 장치로 표현한다. 그러므로 동일한 번호의 TIMER, PWM, CAPTURE는 동시에 활성화 되지 못한다.
 
 
+// PWM 활성화
+#define PWM0_ENABLE			true
+#define PWM1_ENABLE			true
+#define PWM2_ENABLE			false
+#define PWM3_ENABLE			false
+#define PWM4_ENABLE			false
+#define PWM5_ENABLE			true
+#define PWM6_ENABLE			false
+#define PWM7_ENABLE			false
+
 // TIMER 활성화
 #define TIMER0_ENABLE		false
 #define TIMER1_ENABLE		false

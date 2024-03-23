@@ -56,7 +56,7 @@ int main(void)
 	// 보드 초기화
 	initializeBoard();
 
-	// TIMER0을 1kHz 주기로 동작하도록 초기화
+	// TIMER3을 1kHz 주기로 동작하도록 초기화
 	timer3.enableClock();
 	timer3.initialize(1000);
 	timer3.setUpdateIsr(isr_timer0);

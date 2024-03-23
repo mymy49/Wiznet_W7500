@@ -28,21 +28,41 @@ namespace led
 {
 	void initialize(void)
 	{
-		gpioC.lock();
-		gpioC.setAsOutput(8);
-		gpioC.setAsOutput(9);
-		gpioC.setAsOutput(5);
-		gpioC.unlock();
+		gpioC.setAsAltFunc(8, Gpio::PC8_PWM0);
+		gpioC.setAsAltFunc(9, Gpio::PC9_PWM1);
+		gpioC.setAsAltFunc(5, Gpio::PC5_PWM5);
+
+		pwm0.enableClock();
+		pwm0.initialize(5000);
+		pwm0.start();
+
+		pwm1.enableClock();
+		pwm1.initialize(5000);
+		pwm1.start();
+
+		pwm5.enableClock();
+		pwm5.initialize(5000);
+		pwm5.start();
 
 		set(false, false, false);
 	}
 
 	void set(bool r, bool g, bool b)
 	{
-		gpioC.lock();
-		gpioC.setOutput(8, !r);
-		gpioC.setOutput(9, !g);
-		gpioC.setOutput(5, !b);
-		gpioC.unlock();
+		if(r)
+			pwm0.setRatio(0.0);
+		else
+			pwm0.setRatio(1.0);
+
+		if(g)
+			pwm1.setRatio(0.0);
+		else
+			pwm1.setRatio(1.0);
+
+		if(b)
+			pwm5.setRatio(0.0);
+		else
+			pwm5.setRatio(1.0);
 	}
 }
+
