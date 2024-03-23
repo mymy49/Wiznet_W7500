@@ -34,7 +34,7 @@
 // 아래 HSE_CLOCK_FREQ가 정의 되어 있으면 HSE 클럭을 소스로 PLL 설정이 이뤄집니다.
 // 정의되어 있지 않으면 HSI 클럭을 소스로 PLL 설정이 이뤄집니다.
 // OSC 클럭은 8의 배수를 권장합니다.
-//#define OSC_CLOCK_FREQ		8000000
+#define OSC_CLOCK_FREQ		8000000
 
 #if defined(OSC_CLOCK_FREQ) && (48000000 % OSC_CLOCK_FREQ)
 #error "아래 사항을 따르세요."
