@@ -45,51 +45,51 @@ void thread_testBitLed(void)
 
 void thread_testPwmLed(void)
 {
-	float ratio = 1;
+	float ratio = 0;
 	const uint32_t delay = 20;
 
 	while(1)
 	{
-		while(ratio >= 0)
-		{
-			led::set(ratio, 1, 1);
-			thread::delay(delay);
-			ratio -= 0.05;
-		}
-
 		while(ratio < 1.0)
 		{
-			led::set(ratio, 1, 1);
+			led::set(ratio, 0, 0);
 			thread::delay(delay);
 			ratio += 0.05;
 		}
 
 		while(ratio >= 0)
 		{
-			led::set(1, ratio, 1);
+			led::set(ratio, 0, 0);
 			thread::delay(delay);
 			ratio -= 0.05;
 		}
 
 		while(ratio < 1.0)
 		{
-			led::set(1, ratio, 1);
+			led::set(0, ratio, 0);
 			thread::delay(delay);
 			ratio += 0.05;
 		}
 
 		while(ratio >= 0)
 		{
-			led::set(1, 1, ratio);
+			led::set(0, ratio, 0);
 			thread::delay(delay);
 			ratio -= 0.05;
 		}
 
 		while(ratio < 1.0)
 		{
-			led::set(1, 1, ratio);
+			led::set(0, 0, ratio);
 			thread::delay(delay);
 			ratio += 0.05;
+		}
+
+		while(ratio >= 0)
+		{
+			led::set(0, 0, ratio);
+			thread::delay(delay);
+			ratio -= 0.05;
 		}
 	}
 }
