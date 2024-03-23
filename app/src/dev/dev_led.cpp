@@ -64,5 +64,12 @@ namespace led
 		else
 			pwm5.setRatio(1.0);
 	}
+
+	void set(float r, float g, float b)
+	{
+		pwm0.setRatio(r);
+		pwm1.setRatio(g);
+		pwm5.setRatio(b);
+	}
 }
 

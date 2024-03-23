@@ -28,7 +28,7 @@
 
 uint32_t gTimer0Counter;
 
-void thread_testLed(void)
+void thread_testBitLed(void)
 {
 	while(1)
 	{
@@ -40,6 +40,57 @@ void thread_testLed(void)
 
 		led::set(false, false, true);
 		thread::delay(100);
+	}
+}
+
+void thread_testPwmLed(void)
+{
+	float ratio = 1;
+	const uint32_t delay = 20;
+
+	while(1)
+	{
+		while(ratio >= 0)
+		{
+			led::set(ratio, 1, 1);
+			thread::delay(delay);
+			ratio -= 0.05;
+		}
+
+		while(ratio < 1.0)
+		{
+			led::set(ratio, 1, 1);
+			thread::delay(delay);
+			ratio += 0.05;
+		}
+
+		while(ratio >= 0)
+		{
+			led::set(1, ratio, 1);
+			thread::delay(delay);
+			ratio -= 0.05;
+		}
+
+		while(ratio < 1.0)
+		{
+			led::set(1, ratio, 1);
+			thread::delay(delay);
+			ratio += 0.05;
+		}
+
+		while(ratio >= 0)
+		{
+			led::set(1, 1, ratio);
+			thread::delay(delay);
+			ratio -= 0.05;
+		}
+
+		while(ratio < 1.0)
+		{
+			led::set(1, 1, ratio);
+			thread::delay(delay);
+			ratio += 0.05;
+		}
 	}
 }
 
@@ -63,7 +114,8 @@ int main(void)
 	timer3.start();
 	timer3.enableInterrupt();
 	
-	thread::add(thread_testLed, 512);
+	//thread::add(thread_testBitLed, 512);
+	thread::add(thread_testPwmLed, 512);
 
 	debug_printf("MCLK = %d\n", clock.getMclkFrequency());
 	

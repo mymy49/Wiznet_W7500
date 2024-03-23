@@ -26,9 +26,28 @@
 
 namespace led
 {
+	// LED (D4)를 PWM 출력이 지원되도록 초기화 합니다.
 	void initialize(void);
-
+	
+	// LED의 R, G, B 색상을 ON/OFF로 제어 합니다.
+	//
+	// bool r
+	//		적색 LED의 ON/OFF를 설정합니다. (true : ON / false : OFF)
+	// bool g
+	//		녹색 LED의 ON/OFF를 설정합니다. (true : ON / false : OFF)
+	// bool b
+	//		파랑색 LED의 ON/OFF를 설정합니다. (true : ON / false : OFF)
 	void set(bool r, bool g, bool b);
+
+	// LED의 R, G, B 색상의 밝기를 비율로 제어 합니다.
+	//
+	// float r
+	//		적색 LED의 밝기를 설정합니다. (0 : 꺼짐 / 1 : 가장 밝음)
+	// float g
+	//		녹색 LED의 밝기를 설정합니다. (0 : 꺼짐 / 1 : 가장 밝음)
+	// float b
+	//		파랑색 LED의 밝기를 설정합니다. (0 : 꺼짐 / 1 : 가장 밝음)
+	void set(float r, float g, float b);
 }
 
 #endif
