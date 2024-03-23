@@ -72,6 +72,8 @@ public:
 	//		Wiznet W7500x의 경우 0 ~ 63까지 설정 가능합니다. (CLK / (psc+1))
 	// uint32_t top
 	//		타이머 카운터의 TOP 값을 설정합니다.
+	//		STM32의 TOP 값은 해당 타이머의 지원 비트에 따라 다릅니다.
+	//		Wiznet W7500x의 경우 0xFFFFFFFF 까지 지원 됩니다.
 	void initialize(uint32_t psc, uint32_t top) __attribute__((optimize("-O1")));
 	
 	// 타이머의 ISR 함수를 등록합니다.
@@ -99,6 +101,11 @@ public:
 	
 	// 타이머의 동작 주파수를 변경합니다.
 	// 타이머가 동작중에 주파수 변경이 가능합니다.
+	// MCU에 따라 일시적으로 함수 내부에서 장치를 멈추게 하는 경우도 있습니다.
+	//
+	// uint32_t freq
+	//		타이머의 동작 주파수를 설정합니다.
+	//		타이머의 클럭 상황에 따라 주파수가 정확하게 나오지 않을 수 있습니다.
 	void changeFrequency(uint32_t freq) __attribute__((optimize("-O1")));
 
 	// 아래 함수들은 시스템 함수로 사용자의 호출을 금지합니다.
