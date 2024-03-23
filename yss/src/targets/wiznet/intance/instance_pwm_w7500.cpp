@@ -29,7 +29,7 @@
 
 #include <targets/wiznet/bitfield_w7500x.h>
 
-#if TIMER0_ENABLE && defined(PWM0)
+#if PWM0_ENABLE && defined(PWM0)
 #if YSS_TIMER == RUNTIME_PWM0
 #error "현재 PWM0는 yss OS의 Runtime에서 사용하고 있습니다. 일반적인 사용이 불가능합니다."
 #elif (1 < TIMER0_ENABLE + PWM0_ENABLE)
@@ -84,26 +84,18 @@ static const Drv::setup_t gDrvTimer0Setup =
 };
 
 
-static const Timer::setup_t gTimer0Setup = 
+static const Pwm::setup_t gTimer0Setup = 
 {
 	PWM0,						//YSS_TIMER_Dev *dev;
 	0							//uint8_t index;
 };
 
-Timer timer0(gDrvTimer0Setup, gTimer0Setup);
-
-extern "C"
-{
-void PWM0_IRQHandler(void)
-{
-	PWM0->ICR = PWM_CHn_ICR_OIC;
-	timer0.isrUpdate();
-}
-}
+PwmCh1 pwm0(gDrvTimer0Setup, gTimer0Setup);
 
 #endif
 
-#if TIMER1_ENABLE && defined(PWM1)
+
+#if PWM1_ENABLE && defined(PWM1)
 #if YSS_TIMER == RUNTIME_PWM1
 #error "현재 PWM1는 yss OS의 Runtime에서 사용하고 있습니다. 일반적인 사용이 불가능합니다."
 #elif (1 < TIMER1_ENABLE + PWM1_ENABLE)
@@ -158,26 +150,18 @@ static const Drv::setup_t gDrvTimer1Setup =
 };
 
 
-static const Timer::setup_t gTimer1Setup = 
+static const Pwm::setup_t gTimer1Setup = 
 {
 	PWM1,						//YSS_TIMER_Dev *dev;
 	1							//uint8_t index;
 };
 
-Timer timer1(gDrvTimer1Setup, gTimer1Setup);
-
-extern "C"
-{
-void PWM1_IRQHandler(void)
-{
-	PWM1->ICR = PWM_CHn_ICR_OIC;
-	timer1.isrUpdate();
-}
-}
+PwmCh1 pwm1(gDrvTimer1Setup, gTimer1Setup);
 
 #endif
 
-#if TIMER2_ENABLE && defined(PWM2)
+
+#if PWM2_ENABLE && defined(PWM2)
 #if YSS_TIMER == RUNTIME_PWM2
 #error "현재 PWM2는 yss OS의 Runtime에서 사용하고 있습니다. 일반적인 사용이 불가능합니다."
 #elif (1 < TIMER2_ENABLE + PWM2_ENABLE)
@@ -232,26 +216,18 @@ static const Drv::setup_t gDrvTimer2Setup =
 };
 
 
-static const Timer::setup_t gTimer2Setup = 
+static const Pwm::setup_t gTimer2Setup = 
 {
 	PWM2,						//YSS_TIMER_Dev *dev;
 	2							//uint8_t index;
 };
 
-Timer timer2(gDrvTimer2Setup, gTimer2Setup);
-
-extern "C"
-{
-void PWM2_IRQHandler(void)
-{
-	PWM2->ICR = PWM_CHn_ICR_OIC;
-	timer2.isrUpdate();
-}
-}
+PwmCh1 pwm2(gDrvTimer2Setup, gTimer2Setup);
 
 #endif
 
-#if TIMER3_ENABLE && defined(PWM3)
+
+#if PWM3_ENABLE && defined(PWM3)
 #if YSS_TIMER == RUNTIME_PWM3
 #error "현재 PWM3는 yss OS의 Runtime에서 사용하고 있습니다. 일반적인 사용이 불가능합니다."
 #elif (1 < TIMER3_ENABLE + PWM3_ENABLE)
@@ -306,27 +282,18 @@ static const Drv::setup_t gDrvTimer3Setup =
 };
 
 
-static const Timer::setup_t gTimer3Setup = 
+static const Pwm::setup_t gTimer3Setup = 
 {
 	PWM3,						//YSS_TIMER_Dev *dev;
 	3							//uint8_t index;
 };
 
-Timer timer3(gDrvTimer3Setup, gTimer3Setup);
-
-extern "C"
-{
-void PWM3_IRQHandler(void)
-{
-	PWM3->ICR = PWM_CHn_ICR_OIC;
-	timer3.isrUpdate();
-}
-}
+PwmCh1 pwm3(gDrvTimer3Setup, gTimer3Setup);
 
 #endif
 
 
-#if TIMER4_ENABLE && defined(PWM4)
+#if PWM4_ENABLE && defined(PWM4)
 #if YSS_TIMER == RUNTIME_PWM4
 #error "현재 PWM4는 yss OS의 Runtime에서 사용하고 있습니다. 일반적인 사용이 불가능합니다."
 #elif (1 < TIMER4_ENABLE + PWM4_ENABLE)
@@ -381,27 +348,18 @@ static const Drv::setup_t gDrvTimer4Setup =
 };
 
 
-static const Timer::setup_t gTimer4Setup = 
+static const Pwm::setup_t gTimer4Setup = 
 {
 	PWM4,						//YSS_TIMER_Dev *dev;
 	4							//uint8_t index;
 };
 
-Timer timer4(gDrvTimer4Setup, gTimer4Setup);
-
-extern "C"
-{
-void PWM4_IRQHandler(void)
-{
-	PWM4->ICR = PWM_CHn_ICR_OIC;
-	timer4.isrUpdate();
-}
-}
+PwmCh1 pwm4(gDrvTimer4Setup, gTimer4Setup);
 
 #endif
 
 
-#if TIMER5_ENABLE && defined(PWM5)
+#if PWM5_ENABLE && defined(PWM5)
 #if YSS_TIMER == RUNTIME_PWM5
 #error "현재 PWM5는 yss OS의 Runtime에서 사용하고 있습니다. 일반적인 사용이 불가능합니다."
 #elif (1 < TIMER5_ENABLE + PWM5_ENABLE)
@@ -456,27 +414,18 @@ static const Drv::setup_t gDrvTimer5Setup =
 };
 
 
-static const Timer::setup_t gTimer5Setup = 
+static const Pwm::setup_t gTimer5Setup = 
 {
 	PWM5,						//YSS_TIMER_Dev *dev;
 	5							//uint8_t index;
 };
 
-Timer timer5(gDrvTimer5Setup, gTimer5Setup);
-
-extern "C"
-{
-void PWM5_IRQHandler(void)
-{
-	PWM5->ICR = PWM_CHn_ICR_OIC;
-	timer5.isrUpdate();
-}
-}
+PwmCh1 pwm5(gDrvTimer5Setup, gTimer5Setup);
 
 #endif
 
 
-#if TIMER6_ENABLE && defined(PWM6)
+#if PWM6_ENABLE && defined(PWM6)
 #if YSS_TIMER == RUNTIME_PWM6
 #error "현재 PWM6는 yss OS의 Runtime에서 사용하고 있습니다. 일반적인 사용이 불가능합니다."
 #elif (1 < TIMER6_ENABLE + PWM6_ENABLE)
@@ -531,27 +480,18 @@ static const Drv::setup_t gDrvTimer6Setup =
 };
 
 
-static const Timer::setup_t gTimer6Setup = 
+static const Pwm::setup_t gTimer6Setup = 
 {
 	PWM6,						//YSS_TIMER_Dev *dev;
 	6							//uint8_t index;
 };
 
-Timer timer6(gDrvTimer6Setup, gTimer6Setup);
-
-extern "C"
-{
-void PWM6_IRQHandler(void)
-{
-	PWM6->ICR = PWM_CHn_ICR_OIC;
-	timer6.isrUpdate();
-}
-}
+PwmCh1 pwm6(gDrvTimer6Setup, gTimer6Setup);
 
 #endif
 
 
-#if TIMER7_ENABLE && defined(PWM7)
+#if PWM7_ENABLE && defined(PWM7)
 #if YSS_TIMER == RUNTIME_PWM7
 #error "현재 PWM7는 yss OS의 Runtime에서 사용하고 있습니다. 일반적인 사용이 불가능합니다."
 #elif (1 < TIMER7_ENABLE + PWM7_ENABLE)
@@ -606,22 +546,13 @@ static const Drv::setup_t gDrvTimer7Setup =
 };
 
 
-static const Timer::setup_t gTimer7Setup = 
+static const Pwm::setup_t gTimer7Setup = 
 {
 	PWM7,						//YSS_TIMER_Dev *dev;
 	7							//uint8_t index;
 };
 
-Timer timer7(gDrvTimer7Setup, gTimer7Setup);
-
-extern "C"
-{
-void PWM7_IRQHandler(void)
-{
-	PWM7->ICR = PWM_CHn_ICR_OIC;
-	timer7.isrUpdate();
-}
-}
+PwmCh1 pwm7(gDrvTimer7Setup, gTimer7Setup);
 
 #endif
 
