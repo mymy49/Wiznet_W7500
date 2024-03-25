@@ -36,6 +36,10 @@ typedef NRF_UART_Type		YSS_USART_Typedef;
 
 typedef USART_TypeDef		YSS_USART_Typedef;
 
+#elif defined(W7500)
+
+typedef UART_TypeDef		YSS_USART_Typedef;
+
 #else
 
 #include <stdint.h>
@@ -58,7 +62,7 @@ class Uart : public Drv
 	//		에러를 반환한다.
 	// int32_t baud
 	//		통신 보레이트를 설정한다.
-	error initializeAsTransmitterOnly(int32_t baud);
+	error initializeAsTransmitterOnly(int32_t baud) __attribute__((optimize("-O1")));
 
 	// UART 장치를 송신/수신이 가능하도록 초기화 한다. 수신 버퍼의 크기를 입력하면 초기화 함수 내부에서
 	// hmalloc을 이용해 메모리를 할당 받는다.
@@ -69,7 +73,7 @@ class Uart : public Drv
 	//		통신 보레이트를 설정한다.
 	// int32_t  receiveBufferSize
 	//		내부 수신 링버퍼의 크기를 설정한다.
-	error initialize(int32_t  baud, int32_t  receiveBufferSize);
+	error initialize(int32_t  baud, int32_t  receiveBufferSize) __attribute__((optimize("-O1")));
 
 	// UART 장치를 송신/수신이 가능하도록 초기화 한다. 사용자가 별도로 확보한 메모리를 수신 버퍼로 설정한다.
 	// 수신 버퍼의 크기도 지정해줘야 한다.
@@ -82,7 +86,7 @@ class Uart : public Drv
 	//		사용자가 직접 확보한 내부 수신 버퍼 메모리를 설정한다.
 	// int32_t  receiveBufferSize
 	//		receiveBuffer에서 사용자가 설정한 버퍼의 크기를 설정한다.
-	error initialize(int32_t  baud, void *receiveBuffer, int32_t  receiveBufferSize);
+	error initialize(int32_t  baud, void *receiveBuffer, int32_t  receiveBufferSize) __attribute__((optimize("-O1")));
 
 	// UART 장치가 동작중에 보레이트를 변경하기 위해 사용된다.
 	//
@@ -90,7 +94,7 @@ class Uart : public Drv
 	//		에러를 반환한다.
 	// int32_t baud
 	//		변경할 통신 보레이트를 설정한다.
-	error changeBaudrate(int32_t baud);
+	error changeBaudrate(int32_t baud) __attribute__((optimize("-O1")));
 
 	// UART 장치의 Stop Bit 길이를 설정한다.
 	//
@@ -98,7 +102,7 @@ class Uart : public Drv
 	//		에러를 반환한다.
 	// int8_t stopBit
 	//		Stop Bit를 설정한다. define::uart::stopBit에 정의된 항목을 사용한다.
-	error setStopBit(int8_t stopBit);
+	error setStopBit(int8_t stopBit) __attribute__((optimize("-O1")));
 
 	// 수신된 바이트를 얻는다.
 	// 
@@ -106,51 +110,51 @@ class Uart : public Drv
 	//		16비트 자료형으로 수신된 바이트가 없을 경우 -1(0xFFFF)을 반환한다.
 	//		수신된 바이트가 있을 경우 0과 같거나 크고 0x0000 ~ 0x00FF의 크기를 갖는다.
 	//		바이트 부분만 활용하면 된다.
-	int16_t getRxByte(void);
+	int16_t getRxByte(void) __attribute__((optimize("-O1")));
 
 	// 위에 나타낸 getRxByte()와 동일하다.
 	// 본 함수는 과거 작성된 프로젝트의 호환성을 위해 일시적으로 지원하므로 신규 코드 작성에 사용을 권하지 않는다.
-	int16_t get(void);
+	int16_t get(void) __attribute__((optimize("-O1")));
 	
 	// 수신되서 버퍼에 담겨진 데이터의 개수를 반환한다.
 	// 
 	// 반환
 	//		수신된 바이트의 개수를 반환한다.
-	uint32_t getRxCount(void);
+	uint32_t getRxCount(void) __attribute__((optimize("-O1")));
 
 	// 수신된 버퍼중에 가장 먼저 수신된 버퍼의 데이터 포인터를 반환한다. 다음에 수신된 데이터는 다음 번지에 놓여 있다.
 	// 접근 가능한 다음 유효 번지는 geRxCount() 함수의 반환 값까지 접근 가능하다.
 	// 
 	// 반환
 	//		수신된 바이트의 버퍼 포인터를 반환한다.
-	void* getRxBuffer(void);
+	void* getRxBuffer(void) __attribute__((optimize("-O1")));
 	
 	// 수신된 데이터를 getRxBuffer() 함수를 사용해 접근할 경우 현재 수신한 데이터의 처리를 하고, 버퍼에서 다음 수신된 버퍼로 넘어가기 위한 함수이다.
 	// 
 	// uint32_t count
 	//		현재 링버퍼의 포인터를 count에 설정된 포인터만큼 다음 포인터로 이동시킨다.
-	void releaseRxBuffer(uint32_t count);
+	void releaseRxBuffer(uint32_t count) __attribute__((optimize("-O1")));
 
 	// 데이터 수신이 있을 때까지 대기한다. 대기하는 동안은 함수 내에서 thread::yield() 함수를 이용해 대기한다.
 	// 
 	// 반환
 	//		수신된 바이트를 반환한다.
-	uint8_t getWaitUntilReceive(void);
+	uint8_t getWaitUntilReceive(void) __attribute__((optimize("-O1")));
 
 	// 수신 버퍼를 비운다.
-	void flush(void);
+	void flush(void) __attribute__((optimize("-O1")));
 	
 	// Frame Error 발생시 호출될 Interrupt Service Routine(ISR) 함수를 설정한다.
 	//
 	// void (*isr)(void)
 	//		ISR 함수를 설정한다.
-	void setIsrForFrameError(void (*isr)(void));
+	void setIsrForFrameError(void (*isr)(void)) __attribute__((optimize("-O1")));
 
 	// 데이터 수신시 호출될 Interrupt Service Routine(ISR) 함수를 설정한다.
 	//
 	// void (*isr)(void)
 	//		ISR 함수를 설정한다.
-	void setIsrForRxData(void (*isr)(uint8_t rxData));
+	void setIsrForRxData(void (*isr)(uint8_t rxData)) __attribute__((optimize("-O1")));
 	
 	// 복수의 데이터를 송신한다.
 	// 
@@ -160,7 +164,7 @@ class Uart : public Drv
 	//		송신할 데이터 버퍼의 포인터를 설정한다.
 	// int32_t size
 	//		송신할 데이터의 크기를 설정한다.
-	error send(void *src, int32_t  size);
+	error send(void *src, int32_t  size) __attribute__((optimize("-O1")));
 
 	// 복수의 데이터를 송신한다.
 	// 
@@ -170,27 +174,27 @@ class Uart : public Drv
 	//		송신할 데이터 버퍼의 포인터를 설정한다.
 	// int32_t size
 	//		송신할 데이터의 크기를 설정한다.
-	error send(const void *src, int32_t  size);
+	error send(const void *src, int32_t  size) __attribute__((optimize("-O1")));
 
 	// 하나의 바이트 데이터를 송신한다.
 	// 
 	// int8_t data
 	//		송신할 데이터 바이트를 설정한다.
-	void send(int8_t data);
+	void send(int8_t data) __attribute__((optimize("-O1")));
 
 	// UART를 One Wire 모드 동작을 활성화 시킬 때 사용한다.
 	// 송신 데이터가 수신 데이터로 들어오는 것을 막아준다.
 	//
 	// bool en
 	//		One Wire 모드의 활성화를 설정한다. (true - 활성화, false - 비활성화)
-	void setOneWireMode(bool en);
+	void setOneWireMode(bool en) __attribute__((optimize("-O1")));
 	
 	// UART를 일시적으로 활성화/비활성화 시킬 수 있게 한다.
 	// intialize() 함수에서 기본적으로 활성화 되어 있다.
 	//
 	// bool en
 	//		활성화(true)/비활성화(false)로 설정한다.
-	void enable(bool en);
+	void enable(bool en) __attribute__((optimize("-O1")));
 
 	// 아래 함수는 시스템 함수로 사용자 호출을 금한다.
 	struct setup_t
@@ -203,16 +207,16 @@ class Uart : public Drv
 		YSS_USART_Typedef *dev;
 		Dma::DmaInfo txDmaInfo;
 		Dma::DmaInfo rxDmaInfo;
-#elif defined(NRF52840_XXAA)
+#elif defined(NRF52840_XXAA) || defined(W7500)
 		YSS_USART_Typedef *dev;
 #endif
 	};
 
-	Uart(const Drv::setup_t drvSetup, const Uart::setup_t setup);
+	Uart(const Drv::setup_t drvSetup, const Uart::setup_t setup) __attribute__((optimize("-O1")));
 
-	void push(int8_t data);
+	void push(int8_t data) __attribute__((optimize("-O1")));
 
-	void isr(void);
+	void isr(void) __attribute__((optimize("-O1")));
 
 protected:
 	YSS_USART_Typedef *mDev;

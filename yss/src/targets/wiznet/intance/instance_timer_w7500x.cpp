@@ -40,7 +40,9 @@
 
 static void enableTimer0Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM0CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer0Interrup(bool en)
@@ -114,7 +116,9 @@ void PWM0_IRQHandler(void)
 
 static void enableTimer1Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM1CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer1Interrup(bool en)
@@ -188,7 +192,9 @@ void PWM1_IRQHandler(void)
 
 static void enableTimer2Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM2CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer2Interrup(bool en)
@@ -262,7 +268,9 @@ void PWM2_IRQHandler(void)
 
 static void enableTimer3Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM3CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer3Interrup(bool en)
@@ -337,7 +345,9 @@ void PWM3_IRQHandler(void)
 
 static void enableTimer4Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM4CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer4Interrup(bool en)
@@ -412,7 +422,9 @@ void PWM4_IRQHandler(void)
 
 static void enableTimer5Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM5CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer5Interrup(bool en)
@@ -487,7 +499,9 @@ void PWM5_IRQHandler(void)
 
 static void enableTimer6Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM6CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer6Interrup(bool en)
@@ -562,7 +576,9 @@ void PWM6_IRQHandler(void)
 
 static void enableTimer7Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM7CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer7Interrup(bool en)
