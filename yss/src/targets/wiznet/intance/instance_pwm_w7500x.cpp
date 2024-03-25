@@ -40,7 +40,9 @@
 
 static void enableTimer0Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM0CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer0Interrup(bool en)
@@ -106,7 +108,9 @@ PwmCh1 pwm0(gDrvTimer0Setup, gTimer0Setup);
 
 static void enableTimer1Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM1CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer1Interrup(bool en)
@@ -172,7 +176,9 @@ PwmCh1 pwm1(gDrvTimer1Setup, gTimer1Setup);
 
 static void enableTimer2Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM2CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer2Interrup(bool en)
@@ -238,7 +244,9 @@ PwmCh1 pwm2(gDrvTimer2Setup, gTimer2Setup);
 
 static void enableTimer3Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM3CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer3Interrup(bool en)
@@ -304,7 +312,9 @@ PwmCh1 pwm3(gDrvTimer3Setup, gTimer3Setup);
 
 static void enableTimer4Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM4CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer4Interrup(bool en)
@@ -370,7 +380,9 @@ PwmCh1 pwm4(gDrvTimer4Setup, gTimer4Setup);
 
 static void enableTimer5Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM5CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer5Interrup(bool en)
@@ -436,7 +448,9 @@ PwmCh1 pwm5(gDrvTimer5Setup, gTimer5Setup);
 
 static void enableTimer6Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM6CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer6Interrup(bool en)
@@ -502,7 +516,9 @@ PwmCh1 pwm6(gDrvTimer6Setup, gTimer6Setup);
 
 static void enableTimer7Clock(bool en)
 {
+	clock.lock();
 	CRG->PWM7CLK_SSR = 1;
+	clock.unlock();
 }
 
 static void enableTimer7Interrup(bool en)

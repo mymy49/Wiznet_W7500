@@ -28,10 +28,10 @@
 
 #include <yss/error.h>
 #include <drv/mcu.h>
-
+#include <yss/Mutex.h>
 #include "define_w7500x.h"
 
-class Clock
+class Clock : public Mutex
 {
 public:
 	// 외부 HSE 크리스탈을 활성화 합니다.
