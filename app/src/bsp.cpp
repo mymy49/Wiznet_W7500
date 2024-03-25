@@ -28,5 +28,12 @@ void initializeBoard(void)
 {
 	// LED 초기화
 	led::initialize();
+	
+	// UART1 초기화
+	gpioC.setAsAltFunc(2, Gpio::PC2_UART1_TXD);
+	gpioC.setAsAltFunc(3, Gpio::PC3_UART1_RXD);
+	
+	uart1.enableClock();
+	uart1.initialize(115200, 64);
 }
 

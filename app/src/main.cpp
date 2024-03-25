@@ -25,6 +25,7 @@
 #include <bsp.h>
 #include <yss/debug.h>
 #include <util/runtime.h>
+#include <string.h>
 
 uint32_t gTimer0Counter;
 
@@ -94,6 +95,19 @@ void thread_testPwmLed(void)
 	}
 }
 
+void thread_testUart(void)
+{
+	char *str = (char*)"hello world!!\n\r";
+	int32_t size = strlen(str);
+
+	while(1)
+	{
+		uart1.lock();
+		uart1.send(str, size);
+		uart1.unlock();
+	}
+}
+
 void isr_timer0(void)
 {
 	gTimer0Counter++;
@@ -116,6 +130,7 @@ int main(void)
 	
 	//thread::add(thread_testBitLed, 512);
 	thread::add(thread_testPwmLed, 512);
+	thread::add(thread_testUart, 512);
 
 	debug_printf("MCLK = %d\n", clock.getMclkFrequency());
 	

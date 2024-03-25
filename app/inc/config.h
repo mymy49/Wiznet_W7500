@@ -33,7 +33,7 @@
 // ####################### 외부 크리스탈 클럭 주파수 설정 #######################
 // 아래 HSE_CLOCK_FREQ가 정의 되어 있으면 HSE 클럭을 소스로 PLL 설정이 이뤄집니다.
 // 정의되어 있지 않으면 HSI 클럭을 소스로 PLL 설정이 이뤄집니다.
-// OSC 클럭은 8의 배수를 권장합니다.
+// OSC 클럭은 8MHz의 배수를 권장합니다.
 #define OSC_CLOCK_FREQ		8000000
 
 #if defined(OSC_CLOCK_FREQ) && (48000000 % OSC_CLOCK_FREQ)
@@ -64,14 +64,13 @@
 
 // ####################### KEY 설정 #######################
 // 최대 KEY 생성 가능 갯수 설정 (0 ~ ), 0일 경우 기능 꺼짐
-#define NUM_OF_YSS_KEY		4
+#define NUM_OF_YSS_KEY		0
 
 // ###################### 주변 장치 활성화 ######################
 // 활성화 시킬 장치에 대해 false -> true로 변경하여 활성화합니다.
 //
 // 주의 
-// 1. TIMER, PWM, CAPTURE는 실제 동일한 장치지만 OS 구조상 별도의 장치로 표현한다. 그러므로 동일한 번호의 TIMER, PWM, CAPTURE는 동시에 활성화 되지 못한다.
-
+// 1. TIMER, PWM, CAPTURE는 실제 동일한 장치지만 OS 구조상 별도의 장치로 표현합니다. 그러므로 동일한 번호의 TIMER, PWM, CAPTURE는 동시에 활성화 되지 못합니다.
 
 // PWM 활성화
 #define PWM0_ENABLE			true
@@ -93,6 +92,9 @@
 #define TIMER6_ENABLE		false
 #define TIMER7_ENABLE		false
 
+// UART 활성화
+#define UART0_ENABLE		false	
+#define UART1_ENABLE		true
 
 #endif
 
