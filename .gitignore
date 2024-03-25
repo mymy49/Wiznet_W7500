@@ -1,3 +1,4 @@
 /W7500 THUMB Debug/
 *.hzs
 /W7500_working.hzp
+/W7500 THUMB Release/
