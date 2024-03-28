@@ -39,10 +39,10 @@ Pwm::Pwm(const Drv::setup_t drvSetup, const setup_t setup) : Drv(drvSetup)
 	mRisingAtMatch = false;
 }
 
-error Pwm::initialize(uint32_t psc, uint32_t top, bool risingAtMatch)
+error_t Pwm::initialize(uint32_t psc, uint32_t top, bool risingAtMatch)
 {
 	if(psc > 63)
-		return error::WRONG_CONFIG;
+		return error_t::WRONG_CONFIG;
 	
 	mDev->PDMR = PWM_CHn_PDMR_PDM;
 	mDev->PR = psc;
@@ -50,13 +50,13 @@ error Pwm::initialize(uint32_t psc, uint32_t top, bool risingAtMatch)
 	mDev->PEEER = PWM_CHn_PEEER_PEEE_1;
 	mRisingAtMatch = risingAtMatch;
 
-	return error::ERROR_NONE;
+	return error_t::ERROR_NONE;
 }
 
-error Pwm::initialize(uint32_t freq, bool risingAtMatch)
+error_t Pwm::initialize(uint32_t freq, bool risingAtMatch)
 {
 	if(freq < 1)
-		return error::WRONG_CONFIG;
+		return error_t::WRONG_CONFIG;
 
 	uint32_t clk = getClockFrequency();
 
@@ -65,7 +65,7 @@ error Pwm::initialize(uint32_t freq, bool risingAtMatch)
 	mDev->PEEER = PWM_CHn_PEEER_PEEE_1;
 	mRisingAtMatch = risingAtMatch;
 
-	return error::ERROR_NONE;
+	return error_t::ERROR_NONE;
 }
 
 void Pwm::changeFrequency(uint32_t freq)
@@ -104,9 +104,9 @@ uint32_t PwmCh1::getTopValue(void)
 	return mDev->LR;
 }
 
-error PwmCh1::initializeChannel(bool risingAtMatch)
+error_t PwmCh1::initializeChannel(bool risingAtMatch)
 {
-	return error::ERROR_NONE;
+	return error_t::ERROR_NONE;
 }
 
 void PwmCh1::setRatio(float ratio)

@@ -38,14 +38,14 @@ Uart::Uart(const Drv::setup_t drvSetup, const setup_t setup) : Drv(drvSetup)
 	mDev = setup.dev;
 }
 
-error Uart::initialize(int32_t  baud, void *receiveBuffer, int32_t  receiveBufferSize)
+error_t Uart::initialize(int32_t  baud, void *receiveBuffer, int32_t  receiveBufferSize)
 {
 	int32_t  brdi, brdf;
 	int32_t  clk = Drv::getClockFrequency() >> 4;
 
 	brdi = clk / baud;
 	if(brdi > 0xFFFF)
-		return error::WRONG_CONFIG;
+		return error_t::WRONG_CONFIG;
 
 	brdf = 64 * (clk % baud) / baud;
 	
@@ -62,42 +62,68 @@ error Uart::initialize(int32_t  baud, void *receiveBuffer, int32_t  receiveBuffe
 	// TX En, RX En, Rxnei En, 장치 En
 	mDev->CR |= UART_CR_RXE | UART_CR_TXE | UART_CR_UARTEN;
 
+	// RX 인터럽트 활성화
+	mDev->IMSC |= UART_IMSC_RXIM;
+
 	mRcvBuf = (int8_t*)receiveBuffer;
 	mRcvBufSize = receiveBufferSize;
 
-	return error::ERROR_NONE;
+	return error_t::ERROR_NONE;
 }
-/*
-error Uart::setStopBit(int8_t stopBit)
+
+error_t Uart::changeBaudrate(int32_t baud)
+{
+	int32_t  brdi, brdf;
+	int32_t  clk = Drv::getClockFrequency() >> 4;
+	bool enableFlag;
+
+	brdi = clk / baud;
+	if(brdi > 0xFFFF)
+		return error_t::WRONG_CONFIG;
+
+	brdf = 64 * (clk % baud) / baud;
+	
+	enableFlag = (mDev->CR & UART_CR_UARTEN) == UART_CR_UARTEN;
+	if(enableFlag)
+		mDev->CR &= ~UART_CR_UARTEN;
+	
+	// 보레이트 설정
+	mDev->IBRD = brdi;
+	mDev->FBRD = brdf;
+
+	if(enableFlag)
+		mDev->CR |= UART_CR_UARTEN;
+
+	return error_t::ERROR_NONE;
+}
+
+error_t Uart::setStopBit(stopbit_t stopBit)
 {
 	bool enableFlag;
 
-	if(stopBit != define::uart::stopBit::BIT_1 && stopBit != define::uart::stopBit::BIT_2)
-		return error::WRONG_CONFIG;
-
-	enableFlag = (mDev->CR1 & USART_CR1_UE_Msk) == USART_CR1_UE_Msk;
+	enableFlag = (mDev->CR & UART_CR_UARTEN) == UART_CR_UARTEN;
 	if(enableFlag)
-		mDev->CR1 &= ~USART_CR1_UE_Msk;
+		mDev->CR &= ~UART_CR_UARTEN;
 	
-	setFieldData(mDev->CR2, USART_CR2_STOP_Msk, stopBit, USART_CR2_STOP_Pos);
+	setFieldData(mDev->LCR_H, 1 << 3, stopBit, 3);
 
 	if(enableFlag)
-		mDev->CR1 |= USART_CR1_UE_Msk;
+		mDev->CR |= UART_CR_UARTEN;
 
-	return error::ERROR_NONE;
+	return error_t::ERROR_NONE;
 }
-*/
-error Uart::send(void *src, int32_t  size)
+
+error_t Uart::send(void *src, int32_t  size)
 {
 	uint8_t *csrc = (uint8_t*)src;
 
 	if(size == 0)
-		return error::ERROR_NONE;
+		return error_t::ERROR_NONE;
 
 	for(int32_t i = 0; i < size; i++)
 		send(*csrc++);
 
-	return error::ERROR_NONE;
+	return error_t::ERROR_NONE;
 }
 
 void Uart::send(int8_t data)
@@ -119,6 +145,7 @@ void Uart::send(int8_t data)
 
 void Uart::isr(void)
 {
+	push(mDev->DR);
 }
 #endif
 

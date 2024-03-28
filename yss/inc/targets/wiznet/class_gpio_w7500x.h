@@ -209,7 +209,7 @@ public:
 	//		출력의 전류 세기를 설정합니다. (LOW = 3mA / HIGH = 6mA)
 	// otype_t otype
 	//		출력핀의 출력 종류를 설정합니다.
-	error setAsOutput(uint8_t pin, strength_t strength = HIGH, otype_t otype = PUSH_PULL) __attribute__((optimize("-O1")));
+	error_t setAsOutput(uint8_t pin, strength_t strength = HIGH, otype_t otype = PUSH_PULL) __attribute__((optimize("-O1")));
 
 	// 핀의 출력 값을 설정합니다.
 	// 
@@ -229,7 +229,7 @@ public:
 	//		출력의 전류 세기를 설정합니다. (LOW = 3mA / HIGH = 6mA)
 	// otype_t otype
 	//		출력핀의 출력 종류를 설정합니다.
-	error setAsAltFunc(uint8_t pin, altfunc_t altfunc, strength_t strength = HIGH, otype_t otype = PUSH_PULL) __attribute__((optimize("-O1")));
+	error_t setAsAltFunc(uint8_t pin, altfunc_t altfunc, strength_t strength = HIGH, otype_t otype = PUSH_PULL) __attribute__((optimize("-O1")));
 
 	// 아래 함수들은 시스템 함수로 사용자의 호출을 금지합니다.
 	struct setup_t

@@ -57,7 +57,7 @@ public:
 	// uint32_t freq
 	//		PWM 출력 주기의 주파수를 설정합니다.
 	//		타이머의 클럭 상황에 따라 주파수가 정확하게 나오지 않을 수 있습니다.
-	error initialize(uint32_t freq, bool risingAtMatch = false) __attribute__((optimize("-O1")));
+	error_t initialize(uint32_t freq, bool risingAtMatch = false) __attribute__((optimize("-O1")));
 
 	// PWM을 직접 분주비와 카운터의 TOP 값을 기반으로 설정합니다.
 	//
@@ -71,7 +71,7 @@ public:
 	//		PWM 카운터의 TOP 값을 설정합니다.
 	//		STM32의 TOP 값은 해당 타이머의 지원 비트에 따라 다릅니다.
 	//		Wiznet W7500x의 경우 0xFFFFFFFF 까지 지원 됩니다.
-	error initialize(uint32_t psc, uint32_t top, bool risingAtMatch = false) __attribute__((optimize("-O1")));
+	error_t initialize(uint32_t psc, uint32_t top, bool risingAtMatch = false) __attribute__((optimize("-O1")));
 
 	// PWM의 출력 주기의 주파수를 변경합니다.
 	// PWM이 동작중에 주파수 변경이 가능합니다.
@@ -139,13 +139,13 @@ public:
 	bool mRisingAtMatch;
 #endif
 
-	virtual error initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1"))) = 0;
+	virtual error_t initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1"))) = 0;
 };
 
 class PwmCh1 : public Pwm
 {
   public:
-	error initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1")));
+	error_t initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1")));
 
 	virtual uint32_t getTopValue(void) __attribute__((optimize("-O1")));
 
@@ -161,7 +161,7 @@ class PwmCh1 : public Pwm
 class PwmCh2 : public Pwm
 {
   public:
-	error initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1")));
+	error_t initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1")));
 
 	virtual uint32_t getTopValue(void) __attribute__((optimize("-O1")));
 
@@ -177,7 +177,7 @@ class PwmCh2 : public Pwm
 class PwmCh3 : public Pwm
 {
   public:
-	error initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1")));
+	error_t initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1")));
 
 	virtual uint32_t getTopValue(void) __attribute__((optimize("-O1")));
 
@@ -193,7 +193,7 @@ class PwmCh3 : public Pwm
 class PwmCh4 : public Pwm
 {
   public:
-	error initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1")));
+	error_t initializeChannel(bool risingAtMatch = false) __attribute__((optimize("-O1")));
 
 	virtual uint32_t getTopValue(void) __attribute__((optimize("-O1")));
 

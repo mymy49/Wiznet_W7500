@@ -43,7 +43,7 @@ public:
 	// useBypass = false
 	//		입력이 크리스탈일 경우에는 false로 설정합니다.
 	//		입력이 오실레이터일 경우나 클럭 소스를 직접 입력 받을 경우 bypass를 true로 설정합니다.
-	error enableOsc(uint32_t hseHz) __attribute__((optimize("-O1")));
+	error_t enableOsc(uint32_t hseHz) __attribute__((optimize("-O1")));
 	
 	// 내부 RC 오실레이터의 주파수를 얻습니다.
 	// 
@@ -76,7 +76,7 @@ public:
 		PLL_SRC_OCLK,
 	}pllSrc_t;
 
-	error setPllFrequency(pllSrc_t src, uint8_t m, uint8_t n, uint8_t od) __attribute__((optimize("-O1")));
+	error_t setPllFrequency(pllSrc_t src, uint8_t m, uint8_t n, uint8_t od) __attribute__((optimize("-O1")));
 
 private:
 };
