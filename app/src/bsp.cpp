@@ -35,5 +35,6 @@ void initializeBoard(void)
 	
 	uart1.enableClock();
 	uart1.initialize(115200, 64);
+	uart1.enableInterrupt();
 }
 

@@ -93,6 +93,7 @@
 #define TIMER7_ENABLE		false
 
 // UART 활성화
+// 현재 W7500x에서는 UART2는 지원하지 않습니다.
 #define UART0_ENABLE		false	
 #define UART1_ENABLE		true
 

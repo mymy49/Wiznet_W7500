@@ -115,6 +115,9 @@ void isr_timer0(void)
 
 int main(void)
 {
+	uint32_t count;
+	uint8_t *data;
+
 	// 운영체체 초기화
 	initializeYss();
 
@@ -144,6 +147,18 @@ int main(void)
 
 	while(1)
 	{
-		debug_printf("%d, %d\r", (uint32_t)runtime::getMsec(), gTimer0Counter);
+		count = uart1.getRxCount();
+		
+		if(count)
+		{
+			data = (uint8_t*)uart1.getRxBuffer();
+
+			for(uint32_t i = 0; i < count; i++)
+			{
+				debug_printf("%c", data[i]);
+			}
+
+			uart1.releaseRxBuffer(count);
+		}
 	}
 }
