@@ -47,8 +47,16 @@ static void enableTimer0Clock(bool en)
 
 static void enableTimer0Interrup(bool en)
 {
-	PWM->IER |= 1 << 0;
-	NVIC_EnableIRQ(PWM0_IRQn);
+	if(en)
+	{
+		PWM->IER |= 1 << 0;
+		NVIC_EnableIRQ(PWM0_IRQn);
+	}
+	else
+	{
+		PWM->IER &= ~(1 << 0);
+		NVIC_DisableIRQ(PWM0_IRQn);
+	}
 }
 
 static uint32_t getTimer0ClockFrequency(void)
@@ -123,8 +131,16 @@ static void enableTimer1Clock(bool en)
 
 static void enableTimer1Interrup(bool en)
 {
-	PWM->IER |= 1 << 1;
-	NVIC_EnableIRQ(PWM1_IRQn);
+	if(en)
+	{
+		PWM->IER |= 1 << 1;
+		NVIC_EnableIRQ(PWM1_IRQn);
+	}
+	else
+	{
+		PWM->IER &= ~(1 << 1);
+		NVIC_DisableIRQ(PWM1_IRQn);
+	}
 }
 
 static uint32_t getTimer1ClockFrequency(void)
@@ -199,8 +215,16 @@ static void enableTimer2Clock(bool en)
 
 static void enableTimer2Interrup(bool en)
 {
-	PWM->IER |= 1 << 2;
-	NVIC_EnableIRQ(PWM2_IRQn);
+	if(en)
+	{
+		PWM->IER |= 1 << 2;
+		NVIC_EnableIRQ(PWM1_2RQn);
+	}
+	else
+	{
+		PWM->IER &= ~(1 << 2);
+		NVIC_DisableIRQ(PWM1_2RQn);
+	}
 }
 
 static uint32_t getTimer2ClockFrequency(void)
@@ -275,8 +299,16 @@ static void enableTimer3Clock(bool en)
 
 static void enableTimer3Interrup(bool en)
 {
-	PWM->IER |= 1 << 3;
-	NVIC_EnableIRQ(PWM3_IRQn);
+	if(en)
+	{
+		PWM->IER |= 1 << 3;
+		NVIC_EnableIRQ(PWM3_IRQn);
+	}
+	else
+	{
+		PWM->IER &= ~(1 << 3);
+		NVIC_DisableIRQ(PWM3_IRQn);
+	}
 }
 
 static uint32_t getTimer3ClockFrequency(void)
@@ -352,8 +384,16 @@ static void enableTimer4Clock(bool en)
 
 static void enableTimer4Interrup(bool en)
 {
-	PWM->IER |= 1 << 4;
-	NVIC_EnableIRQ(PWM4_IRQn);
+	if(en)
+	{
+		PWM->IER |= 1 << 4;
+		NVIC_EnableIRQ(PWM4_IRQn);
+	}
+	else
+	{
+		PWM->IER &= ~(1 << 4);
+		NVIC_DisableIRQ(PWM4_IRQn);
+	}
 }
 
 static uint32_t getTimer4ClockFrequency(void)
@@ -429,8 +469,16 @@ static void enableTimer5Clock(bool en)
 
 static void enableTimer5Interrup(bool en)
 {
-	PWM->IER |= 1 << 5;
-	NVIC_EnableIRQ(PWM5_IRQn);
+	if(en)
+	{
+		PWM->IER |= 1 << 5;
+		NVIC_EnableIRQ(PWM1_IRQn);
+	}
+	else
+	{
+		PWM->IER &= ~(1 << 5);
+		NVIC_DisableIRQ(PWM1_IRQn);
+	}
 }
 
 static uint32_t getTimer5ClockFrequency(void)
@@ -506,8 +554,16 @@ static void enableTimer6Clock(bool en)
 
 static void enableTimer6Interrup(bool en)
 {
-	PWM->IER |= 1 << 6;
-	NVIC_EnableIRQ(PWM6_IRQn);
+	if(en)
+	{
+		PWM->IER |= 1 << 6;
+		NVIC_EnableIRQ(PWM6_IRQn);
+	}
+	else
+	{
+		PWM->IER &= ~(1 << 6);
+		NVIC_DisableIRQ(PWM6_IRQn);
+	}
 }
 
 static uint32_t getTimer6ClockFrequency(void)
@@ -583,8 +639,16 @@ static void enableTimer7Clock(bool en)
 
 static void enableTimer7Interrup(bool en)
 {
-	PWM->IER |= 1 << 7;
-	NVIC_EnableIRQ(PWM7_IRQn);
+	if(en)
+	{
+		PWM->IER |= 1 << 7;
+		NVIC_EnableIRQ(PWM7_IRQn);
+	}
+	else
+	{
+		PWM->IER &= ~(1 << 7);
+		NVIC_DisableIRQ(PWM7_IRQn);
+	}
 }
 
 static uint32_t getTimer7ClockFrequency(void)
